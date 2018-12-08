@@ -13,9 +13,8 @@ export default class LoginScreen extends React.Component {
 
     constructor(props) {
         super(props);
-        this.navigate = this.props.navigation;
-
-        this.state = { email: '', password: '' };
+        this.navigation = this.props.navigation;
+        this.state = { email: 'building_chain@blockchain.com', password: '12345678' };
     }
     
 
@@ -34,6 +33,8 @@ export default class LoginScreen extends React.Component {
             Alert.alert('Credentials', `email is not valid`);
             return;
         }
+
+        this.navigation.replace("Home");
     }
 
     render() {
@@ -60,8 +61,8 @@ export default class LoginScreen extends React.Component {
                 
             
                 <TouchableOpacity
-                    style={main.button}>
-                
+                    style={main.button}
+                    onPress={this.login}>
                     <Button
                         onPress={this.login}
                         title="Login"
@@ -71,7 +72,7 @@ export default class LoginScreen extends React.Component {
 
                 <Button
                     style={main.secondBtn}
-                    onPress={() => this.props.navigation.navigate("SignUp")}
+                    onPress={() => this.navigation.navigate("SignUp")}
                     title="Sign Up"
                     color="black"
                 />

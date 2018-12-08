@@ -81,17 +81,16 @@ export default class SignUpScreen extends React.Component {
                     style={main.input}
                 />
                 
-            
                 <TouchableOpacity
-                    style={main.button}>
-                
+                    style={main.button}
+                    onPress={this.signUp}>
                     <Button
                         onPress={this.signUp}
                         title="Sign Up"
                         color="black"
                     />
                 </TouchableOpacity>
-
+        
                 <Button
                     style={main.secondBtn}
                     onPress={() => this.props.navigation.navigate("Login")}

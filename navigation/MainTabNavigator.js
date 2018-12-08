@@ -4,41 +4,47 @@ import { createStackNavigator, createBottomTabNavigator, StackNavigator } from '
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import SearchScreen from '../screens/SearchScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import LoginScreen from '../screens/loginScreen';
-import SignUpScreen from '../screens/signupScreen';
+import LoginScreen from '../screens/LoginScreen';
+import SignUpScreen from '../screens/SignupScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
 });
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  ),
+    tabBarLabel: 'Home',
+    header: null,
+    title: 'Home',
+    headerLeft: null,
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+        focused={focused}
+        name={
+            Platform.OS === 'ios'
+            ? `ios-information-circle${focused ? '' : '-outline'}`
+            : 'md-information-circle'
+        }
+        />
+    ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const SearchStack = createStackNavigator({
+  Search: SearchScreen,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
-    />
-  ),
+SearchStack.navigationOptions = {
+    tabBarLabel: 'Search',
+    header: null,
+    title: 'Search',
+    headerLeft: null,
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+        focused={focused}
+        name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'}
+        />
+    ),
 };
 
 const SettingsStack = createStackNavigator({
@@ -46,27 +52,30 @@ const SettingsStack = createStackNavigator({
 });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-    />
-  ),
+    tabBarLabel: 'Settings',
+    header: null,
+    title: 'Setting',
+    headerLeft: null,
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+        focused={focused}
+        name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+        />
+    ),
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
+    HomeStack,
+    SearchStack,
+    SettingsStack,
 });
 
 export const AppNavigator = StackNavigator({
-  Login: { screen: LoginScreen },
-  SignUp: { screen: SignUpScreen},
-  Home: { screen: createBottomTabNavigator({
-        HomeStack,
-        LinksStack,
-        SettingsStack,
-    })}
+    Login: { screen: LoginScreen },
+    SignUp: { screen: SignUpScreen},
+    Home: { screen: createBottomTabNavigator({
+            HomeStack,
+            SearchStack,
+            SettingsStack,
+        })}
 });
