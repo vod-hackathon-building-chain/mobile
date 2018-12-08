@@ -14,10 +14,6 @@ const HomeStack = createStackNavigator({
 });
 
 HomeStack.navigationOptions = {
-    tabBarLabel: 'Home',
-    header: null,
-    title: 'Home',
-    headerLeft: null,
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
         focused={focused}
@@ -52,9 +48,7 @@ const SettingsStack = createStackNavigator({
 });
 
 SettingsStack.navigationOptions = {
-    tabBarLabel: 'Settings',
     header: null,
-    title: 'Setting',
     headerLeft: null,
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
@@ -71,11 +65,17 @@ export default createBottomTabNavigator({
 });
 
 export const AppNavigator = StackNavigator({
-    Login: { screen: LoginScreen },
-    SignUp: { screen: SignUpScreen},
+    Login: { screen: LoginScreen, header: null },
+    SignUp: { screen: SignUpScreen, header: null},
     Home: { screen: createBottomTabNavigator({
             HomeStack,
             SearchStack,
             SettingsStack,
-        })}
-});
+        }),
+    }
+}, {
+  headerMode: 'none',
+  navigationOptions: {
+    headerVisible: false,
+  }
+ });

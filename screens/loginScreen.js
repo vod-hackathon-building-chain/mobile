@@ -2,7 +2,6 @@ import React from 'react';
 import { ExpoConfigView } from '@expo/samples';
 import { Alert, Button, Text, TouchableOpacity, TextInput, View, StyleSheet } from 'react-native';
 import { Dimensions } from "react-native";
-import { white } from 'ansi-colors';
 
 export default class LoginScreen extends React.Component {
     static navigationOptions = {
