@@ -4,21 +4,19 @@ import { Alert, Button, Text, TouchableOpacity, TextInput, View, StyleSheet } fr
 import { Dimensions } from "react-native";
 import { white } from 'ansi-colors';
 
-export default class LoginScreen extends React.Component {
+export default class SignUpScreen extends React.Component {
     static navigationOptions = {
         header: null,
-        title: 'Login',
+        title: 'Sign Up',
         headerLeft: null
     };
 
     constructor(props) {
         super(props);
-        this.navigate = this.props.navigation;
-
         this.state = { email: '', password: '' };
         
         this.login = this.login.bind(this);
-        this.signUp = this.signUp.bind(this);
+
     }
     
 
@@ -28,6 +26,11 @@ export default class LoginScreen extends React.Component {
     }
 
     login() {
+        this.props.navigation.navigate("Login");
+    }
+
+    signUp() {
+        
         if (this.state.email === "" || this.state.password === "") {
             Alert.alert('Credentials', `email or password is not valid`);
             return;
@@ -38,11 +41,8 @@ export default class LoginScreen extends React.Component {
             return;
         }
 
-        
-    }
+        Alert.alert('Credentials', `Success`);
 
-    signUp() {
-        this.props.navigation.navigate("SignUp");
     }
 
     render() {
@@ -72,16 +72,16 @@ export default class LoginScreen extends React.Component {
                     style={main.button}>
                 
                     <Button
-                        onPress={this.login}
-                        title="Login"
+                        onPress={this.signUp}
+                        title="Sign Up"
                         color="black"
                     />
                 </TouchableOpacity>
 
                 <Button
                     style={main.secondBtn}
-                    onPress={this.signUp}
-                    title="Sign Up"
+                    onPress={this.login}
+                    title="Login"
                     color="black"
                 />
                     

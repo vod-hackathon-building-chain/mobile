@@ -1,11 +1,13 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator, StackNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import LoginScreen from '../screens/loginScreen';
+import SignUpScreen from '../screens/signupScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -57,4 +59,14 @@ export default createBottomTabNavigator({
   HomeStack,
   LinksStack,
   SettingsStack,
+});
+
+export const AppNavigator = StackNavigator({
+  Login: { screen: LoginScreen },
+  SignUp: { screen: SignUpScreen},
+  Home: { screen: createBottomTabNavigator({
+        HomeStack,
+        LinksStack,
+        SettingsStack,
+    })}
 });
