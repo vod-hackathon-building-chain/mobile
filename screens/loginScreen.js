@@ -16,9 +16,6 @@ export default class LoginScreen extends React.Component {
         this.navigate = this.props.navigation;
 
         this.state = { email: '', password: '' };
-        
-        this.login = this.login.bind(this);
-        this.signUp = this.signUp.bind(this);
     }
     
 
@@ -27,7 +24,7 @@ export default class LoginScreen extends React.Component {
         return re.test(String(email).toLowerCase());
     }
 
-    login() {
+    login = () => {
         if (this.state.email === "" || this.state.password === "") {
             Alert.alert('Credentials', `email or password is not valid`);
             return;
@@ -37,12 +34,6 @@ export default class LoginScreen extends React.Component {
             Alert.alert('Credentials', `email is not valid`);
             return;
         }
-
-        
-    }
-
-    signUp() {
-        this.props.navigation.navigate("SignUp");
     }
 
     render() {
@@ -80,7 +71,7 @@ export default class LoginScreen extends React.Component {
 
                 <Button
                     style={main.secondBtn}
-                    onPress={this.signUp}
+                    onPress={() => this.props.navigation.navigate("SignUp")}
                     title="Sign Up"
                     color="black"
                 />

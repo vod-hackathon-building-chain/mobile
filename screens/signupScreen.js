@@ -13,23 +13,15 @@ export default class SignUpScreen extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { email: '', password: '' };
-        
-        this.login = this.login.bind(this);
-
+        this.state = { email: '', password: '', username:'', fname: '', sname: '' };
     }
-    
 
     validateEmail(email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
     }
 
-    login() {
-        this.props.navigation.navigate("Login");
-    }
-
-    signUp() {
+    signUp = () => {
         
         if (this.state.email === "" || this.state.password === "") {
             Alert.alert('Credentials', `email or password is not valid`);
@@ -50,6 +42,28 @@ export default class SignUpScreen extends React.Component {
             <View style={main.container}>
                 <Text style={main.titleText}>Building</Text>
                 <Text style={main.titleText2}>Chain</Text>
+                <Text style={main.titleText3}>Sign Up Form</Text>
+                <TextInput
+                    value={this.state.fname}
+                    onChangeText={(fname) => this.setState({ fname })}
+                    placeholder='First Name'
+                    placeholderTextColor = 'black'
+                    style={main.input}
+                />
+                <TextInput
+                    value={this.state.sname}
+                    onChangeText={(sname) => this.setState({ sname })}
+                    placeholder='Family Name'
+                    placeholderTextColor = 'black'
+                    style={main.input}
+                />
+                <TextInput
+                    value={this.state.username}
+                    onChangeText={(username) => this.setState({ username })}
+                    placeholder='Username'
+                    placeholderTextColor = 'black'
+                    style={main.input}
+                />
                 <TextInput
                     value={this.state.email}
                     keyboardType = 'email-address'
@@ -80,7 +94,7 @@ export default class SignUpScreen extends React.Component {
 
                 <Button
                     style={main.secondBtn}
-                    onPress={this.login}
+                    onPress={() => this.props.navigation.navigate("Login")}
                     title="Login"
                     color="black"
                 />
@@ -109,6 +123,12 @@ const main = StyleSheet.create({
   titleText2: {
     fontFamily: 'Baskerville',
     fontSize: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  titleText3: {
+    fontFamily: 'Baskerville',
+    fontSize: 15,
     alignItems: 'center',
     justifyContent: 'center',
 
