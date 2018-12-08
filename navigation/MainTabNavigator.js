@@ -5,7 +5,7 @@ import { createStackNavigator, createBottomTabNavigator, StackNavigator } from '
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import SearchScreen from '../screens/SearchScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import NotificationScreen from '../screens/NotificationScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignUpScreen from '../screens/SignupScreen';
 
@@ -14,6 +14,7 @@ const HomeStack = createStackNavigator({
 });
 
 HomeStack.navigationOptions = {
+    tabBarLabel: 'Home',
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
         focused={focused}
@@ -43,12 +44,13 @@ SearchStack.navigationOptions = {
     ),
 };
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+const NotificationStack = createStackNavigator({
+  Settings: NotificationScreen,
 });
 
-SettingsStack.navigationOptions = {
+NotificationStack.navigationOptions = {
     header: null,
+    tabBarLabel: 'Notification',
     headerLeft: null,
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
@@ -60,8 +62,8 @@ SettingsStack.navigationOptions = {
 
 export default createBottomTabNavigator({
     HomeStack,
+    NotificationStack,
     SearchStack,
-    SettingsStack,
 });
 
 export const AppNavigator = StackNavigator({
@@ -69,8 +71,8 @@ export const AppNavigator = StackNavigator({
     SignUp: { screen: SignUpScreen, header: null},
     Home: { screen: createBottomTabNavigator({
             HomeStack,
+            NotificationStack,
             SearchStack,
-            SettingsStack,
         }),
     }
 }, {
