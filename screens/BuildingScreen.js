@@ -16,11 +16,19 @@ const buildingImage = require('../assets/images/map.png');
 
 class Building {
     name = "Building one";
-    location = "el agoza ";
+    address = "el agoza ";
     city = "giza";
     electricity = new Building.Electricity();
     gas = new Building.Gas();
     water = new Building.Water();
+    id = 1;
+    latitude = 123;
+    longitudes = 22;
+    numberOfRooms = 2;
+    area = 150;
+    numberOfBathrooms = 1;
+    level = 5
+    isFurnitured = true
 
     static Electricity = class {
         totalReader = 16000;
@@ -79,9 +87,17 @@ export default class BuildingScreen extends React.Component {
                         </TouchableOpacity>
                     </View>
 
-                    <View style={styles.header} flexDirection="horizontal" alignItems="left" paddingLeft="2%">
-                        <Text >City {this.building.city}</Text>
-                        <Text >Address {this.building.location}</Text>
+                    <View style={[styles.header, {marginLeft: 10,borderLeftColor: "black", borderLeftWidth: 2}]} flexDirection="horizontal" alignItems="left" paddingLeft="3%" >
+                        <Text style={{fontSize: 15}}>Area {this.building.area}</Text>
+                        <Text style={{fontSize: 15}}>City {this.building.city}</Text>
+                        <Text style={{fontSize: 15}}>Address {this.building.address}</Text>
+                        <Text style={{fontSize: 15}}>Level {this.building.level}</Text>
+                        
+                        <Text></Text>
+                        <Text style={{fontSize: 15}}>{(this.building.isFurnitured) ? 'The building have furniture': 'There is no furniture'}</Text>
+                        <Text style={{fontSize: 15}}>N.Room {this.building.numberOfRooms}</Text>
+                        <Text style={{fontSize: 15}}>N.Bathroom {this.building.numberOfBathrooms}</Text>
+                        
                     </View>
 
 
