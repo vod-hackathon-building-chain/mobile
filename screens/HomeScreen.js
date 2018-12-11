@@ -8,104 +8,136 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { CheckBox } from 'react-native-elements'
-
+import { CheckBox, List, ListItem, FlatList, Avatar} from 'react-native-elements'
 
 export default class HomeScreen extends React.Component {
     static navigationOptions = {
         title : "Home Screen"
     };
 
+
     constructor(props) {
         super(props);
         this.state = { buildingChecked: true, contractChecked: true };
+        this.navigation = this.props.navigation;
     }
 
     renderBuilding = () => {
         if (this.state.buildingChecked)
             return (                
-                <View style={styles.welcomeContainer}>
-                    <Text style={styles.titleText}>Buildings</Text>
-                    <View style={styles.getStartedContainer}> 
-
-                    </View>
+                <View>
+                    <Text style={styles.titleText}>Building</Text>
+                    <List>
+                        <ListItem
+                            onPress={() => this.navigation.navigate("Building")}
+                            title='building one'
+                            subtitle={
+                                <View style={styles.subtitleView}>
+                                    <Text style={styles.ratingText}>City: giza</Text>
+                                    <Text style={styles.ratingText}>Location: el agoza street abo nour</Text>
+                                    <Text style={styles.ratingText}>area: 150m</Text>
+                                </View>
+                            }
+                            avatar={
+                                <Avatar
+                                large
+                                rounded
+                                icon={{name: 'home', type: 'font-awesome'}}
+                                />
+                            }
+                        />
+                    </List>
                 </View>
             );
     }
-
+//  height={`YOUR_HEIGHT`} width={`YOUR_WIDTH`
     renderContract = () => {
         if (this.state.contractChecked)
-            return(
-                <View style={styles.welcomeContainer}>
+            return (
+                <View>
                     <Text style={styles.titleText}>Contracts</Text>
-                    <View style={styles.getStartedContainer}> 
+                    <List>
+                    <ListItem
+                        title='building one'
+                        subtitle={
+                            <View style={styles.subtitleView}>
+                                <View><Text style={styles.ratingText}>Status: Running</Text></View>
+                                <View><Text style={styles.ratingText}>Since 3 day</Text></View>
+                            </View>
+                        }
+                        avatar={require('./../assets/images/building-blocks.png')}
+                    />
+                    </List>
 
-                    </View>
                 </View>
             );
     }
 
     render() {
         return (
-            <View style={styles.container}>
-            <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-                {this.renderBuilding()}
-                {this.renderContract()}
             
-            </ScrollView>
+            <View style={styles.container}>
+                
+                <ScrollView style={styles.container}>
+                    {this.renderBuilding()}
+                    <View style={styles.line}></View>
+                    {this.renderContract()}
+                </ScrollView>
 
-            <View style={styles.tabBarInfoContainer}>
-                <View style={styles.checkBoxContainer}>
-                    <CheckBox
-                        style = {styles.checkbox}
-                        center
-                        title='Building'
-                        checked={this.state.buildingChecked}
-                        onPress={() => this.setState({buildingChecked : !this.state.buildingChecked})}
-                    />
-                    <CheckBox
-                        style = {styles.checkbox}
-                        center
-                        title='Contract'
-                        checked={this.state.contractChecked}
-                        onPress={() => this.setState({contractChecked : !this.state.contractChecked})}
-                    />
+                <View style={styles.tabBarInfoContainer}>
+                    <View style={styles.checkBoxContainer}>
+                        <CheckBox
+                            style={styles.checkbox}
+                            center
+                            title='Building'
+                            checked={this.state.buildingChecked}
+                            onPress={() => this.setState({buildingChecked : !this.state.buildingChecked})}
+                        />
+                        <CheckBox
+                            style={styles.checkbox}
+                            center
+                            title='Contract'
+                            checked={this.state.contractChecked}
+                            onPress={() => this.setState({contractChecked : !this.state.contractChecked})}
+                        />
+                    </View>
                 </View>
             </View>
-        </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    titleText:{
-        fontFamily: 'Baskerville',
-        fontSize: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
+    line: {
+        marginTop: 15
     },
-    titleText2: {
-        fontFamily: 'Baskerville',
-        fontSize: 40,
-        alignItems: 'center',
-        justifyContent: 'center',
-
+    card: {
+        backgroundColor: "grey"
+    },
+    subtitleView: {
+        paddingLeft: 10,
+        paddingTop: 5
+    },
+    ratingImage: {
+        height: 19.21,
+        width: 100
+    },
+    ratingText: {
+        paddingLeft: 10,
+        color: 'grey'
+    },
+    titleText:{
+        fontSize: 30,
+        paddingLeft:10
     },
     container: {
         flex: 1,
         backgroundColor: '#fff',
     },
-    contentContainer: {
-        paddingTop: 30,
-    },
     welcomeContainer: {
         alignItems: 'center',
         marginTop: 10,
         marginBottom: 20,
-    },
-    getStartedContainer: {
-        alignItems: 'center',
-        marginHorizontal: 50,
     },
     checkbox: {
         width: '40%',

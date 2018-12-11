@@ -41,13 +41,13 @@ var width = Dimensions.get('window').width; //full width
 
 const styles = StyleSheet.create({
     titleText:{
-        fontFamily: 'Baskerville',
+         
         fontSize: 50,
         alignItems: 'center',
         justifyContent: 'center',
     },
     titleText2: {
-        fontFamily: 'Baskerville',
+         
         fontSize: 40,
         alignItems: 'center',
         justifyContent: 'center',

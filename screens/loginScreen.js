@@ -65,7 +65,7 @@ export default class LoginScreen extends React.Component {
                     <Button
                         onPress={this.login}
                         title="Login"
-                        color="black"
+                        color="#C3F3BC"
                     />
                 </TouchableOpacity>
 
@@ -73,7 +73,7 @@ export default class LoginScreen extends React.Component {
                     style={main.secondBtn}
                     onPress={() => this.navigation.navigate("SignUp")}
                     title="Sign Up"
-                    color="black"
+                    color="#C3F3BC"
                 />
                     
             </View>
@@ -92,13 +92,13 @@ const main = StyleSheet.create({
     backgroundColor: '#E8FCE5',
   },
   titleText:{
-    fontFamily: 'Baskerville',
+     
     fontSize: 50,
     alignItems: 'center',
     justifyContent: 'center',
   },
   titleText2: {
-    fontFamily: 'Baskerville',
+     
     fontSize: 40,
     alignItems: 'center',
     justifyContent: 'center',
@@ -118,7 +118,7 @@ const main = StyleSheet.create({
   secondBtn: {
     alignItems: 'center',
     width: 200,
-    color: "black",
+    color: "#C3F3BC",
     marginBottom: 20,
     padding: 10,
     borderWidth: 1,
@@ -130,7 +130,7 @@ const main = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "white",
     color: "black",
-    fontFamily: 'Baskerville',
+     
     fontSize: 20,
     height: 44,
     padding: 10,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator, StackNavigator } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
@@ -8,6 +8,7 @@ import SearchScreen from '../screens/SearchScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignUpScreen from '../screens/SignupScreen';
+import BuildingScreen from '../screens/BuildingScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -66,7 +67,8 @@ export default createBottomTabNavigator({
     SearchStack,
 });
 
-export const AppNavigator = StackNavigator({
+export const AppNavigator = createStackNavigator({
+    
     Login: { screen: LoginScreen, header: null },
     SignUp: { screen: SignUpScreen, header: null},
     Home: { screen: createBottomTabNavigator({
@@ -74,7 +76,8 @@ export const AppNavigator = StackNavigator({
             NotificationStack,
             SearchStack,
         }),
-    }
+    },
+    Building: {screen: BuildingScreen, header: null},
 }, {
   headerMode: 'none',
   navigationOptions: {

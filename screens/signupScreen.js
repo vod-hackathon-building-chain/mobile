@@ -114,19 +114,19 @@ const main = StyleSheet.create({
     backgroundColor: '#E8FCE5',
   },
   titleText:{
-    fontFamily: 'Baskerville',
+     
     fontSize: 50,
     alignItems: 'center',
     justifyContent: 'center',
   },
   titleText2: {
-    fontFamily: 'Baskerville',
+     
     fontSize: 40,
     alignItems: 'center',
     justifyContent: 'center',
   },
   titleText3: {
-    fontFamily: 'Baskerville',
+     
     fontSize: 15,
     alignItems: 'center',
     justifyContent: 'center',
@@ -158,7 +158,7 @@ const main = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "white",
     color: "black",
-    fontFamily: 'Baskerville',
+     
     fontSize: 20,
     height: 44,
     padding: 10,
