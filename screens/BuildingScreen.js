@@ -79,6 +79,68 @@ export default class BuildingScreen extends React.Component {
                         </TouchableOpacity>
                     </View>
 
+                    <View style={styles.header} flexDirection="horizontal" alignItems="left" paddingLeft="2%">
+                        <Text >City {this.building.city}</Text>
+                        <Text >Address {this.building.location}</Text>
+                    </View>
+
+
+                    <View style={styles.electricity}>
+                        <Text style={styles.Etitle} fontSize="30">Electricity</Text>
+                        <View style={styles.Econtent}>
+                            <Text fontSize="8">Total Read : {this.building.electricity.totalReader}</Text>
+                            <Text fontSize="8">Current Read : {this.building.electricity.monthReader}</Text>
+                            <Text fontSize="8">my pays : {this.building.electricity.totalToPay}</Text>
+                        </View>
+                    </View>
+                    <TouchableOpacity
+                            onPress={this.publish}>
+                            <Button
+                                marginTop = "5"
+                                onPress={this.publish}
+                                title="Pay"
+                                color="black"
+                                backgroundColor= '#E8FCE5'
+                            />
+                        </TouchableOpacity>
+
+                    <View style={styles.electricity}>
+                        <Text style={styles.Etitle} fontSize="30">Gas</Text>
+                        <View style={styles.Econtent}>
+                            <Text fontSize="8">Total Read : {this.building.gas.totalReader}</Text>
+                            <Text fontSize="8">Current Read : {this.building.gas.monthReader}</Text>
+                            <Text fontSize="8">my pays : {this.building.gas.totalToPay}</Text>
+                        </View>
+                    </View>
+                    <TouchableOpacity
+                            onPress={this.publish}>
+                            <Button
+                                marginTop = "5"
+                                onPress={this.publish}
+                                title="Pay"
+                                color="black"
+                                backgroundColor= '#E8FCE5'
+                            />
+                        </TouchableOpacity>
+
+                    <View style={styles.electricity}>
+                        <Text style={styles.Etitle} fontSize="30">Water</Text>
+                        <View style={styles.Econtent}>
+                            <Text fontSize="8">Total Read : {this.building.water.totalReader}</Text>
+                            <Text fontSize="8">Current Read : {this.building.water.monthReader}</Text>
+                            <Text fontSize="8">my pays : {this.building.water.totalToPay}</Text>
+                        </View>
+                    </View>
+                    <TouchableOpacity
+                            onPress={this.publish}>
+                            <Button
+                                marginTop = "5"
+                                backgroundColor= '#E8FCE5'
+                                onPress={this.publish}
+                                title="Pay"
+                                color="black"
+                            />
+                        </TouchableOpacity>
                 </ScrollView>
             </View>
         );
@@ -88,6 +150,25 @@ export default class BuildingScreen extends React.Component {
 var width = Dimensions.get('window').width; //full width
 
 const styles = StyleSheet.create({
+    Etitle: {
+        paddingLeft: 15,
+        width: width/4, 
+    },
+    Econtent: {
+        width: width/4 * 3, 
+        borderLeftWidth: 2,
+        paddingLeft: 10,
+        borderLeftColor: "black"
+    },
+    electricity: {
+        paddingTop: 15,
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1,
+        flexDirection: "row",
+        marginBottom: 10
+    },
     headerBtn: {
         textAlign: 'center',
         width: width/3, 
