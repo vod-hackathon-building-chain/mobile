@@ -73,19 +73,11 @@ export default class BuildingScreen extends React.Component {
                     />
                     <View style={styles.header}>
                         <Text style={styles.headerText}>{this.building.name}</Text>
-                        <TouchableOpacity
-                            style={styles.headerBtn}
-                            borderRadius="5"
-                            borderWidth="1"
-                            borderColor="#C3F3BC"
-                            onPress={this.publish}>
-                            <Text
-                                borderRadius="5"
-                                borderWidth="1"
-                                borderColor="#C3F3BC"
-                                onPress={this.publish}
-                            >Publish</Text>
-                        </TouchableOpacity>
+                            <TouchableOpacity
+                                style= {{borderColor:"#78D569", borderRadius: 10, borderWidth: 3, padding: 10, color: "white", backgroundColor: "white"}}
+                                underlayColor='#fff'>
+                                <Text >Publish</Text>
+                            </TouchableOpacity>
                     </View>
 
                     <View style={[styles.header, {marginRight: 10, marginLeft: 10,borderRightColor: "black", borderLeftColor: "black", borderLeftWidth: 2, borderRightWidth: 2}]} flexDirection="column" paddingLeft="3%" >
@@ -111,15 +103,11 @@ export default class BuildingScreen extends React.Component {
                         </View>
                     </View>
                     <TouchableOpacity
-                            onPress={this.publish}>
-                            <Button
-                                marginTop = "5"
-                                onPress={this.publish}
-                                title="Pay"
-                                color="black"
-                                backgroundColor= '#E8FCE5'
-                            />
-                        </TouchableOpacity>
+                        style= {{borderRadius: 10, padding: 10, margin: 10, backgroundColor: "#E8FCE5"}}
+                        underlayColor='#fff'>
+                        <Text style={{textAlign: "center"}}>Pay</Text>
+                    </TouchableOpacity>
+                 
 
                     <View style={styles.electricity}>
                         <Text style={styles.Etitle} fontSize="30">Gas</Text>
@@ -130,15 +118,10 @@ export default class BuildingScreen extends React.Component {
                         </View>
                     </View>
                     <TouchableOpacity
-                            onPress={this.publish}>
-                            <Button
-                                marginTop = "5"
-                                onPress={this.publish}
-                                title="Pay"
-                                color="black"
-                                backgroundColor= '#E8FCE5'
-                            />
-                        </TouchableOpacity>
+                        style= {{borderRadius: 10, padding: 10, margin: 10, backgroundColor: "#E8FCE5"}}
+                        underlayColor='#fff'>
+                        <Text style={{textAlign: "center"}}>Pay</Text>
+                    </TouchableOpacity>
 
                     <View style={styles.electricity}>
                         <Text style={styles.Etitle} fontSize="30">Water</Text>
@@ -149,15 +132,10 @@ export default class BuildingScreen extends React.Component {
                         </View>
                     </View>
                     <TouchableOpacity
-                            onPress={this.publish}>
-                            <Button
-                                marginTop = "5"
-                                backgroundColor= '#E8FCE5'
-                                onPress={this.publish}
-                                title="Pay"
-                                color="black"
-                            />
-                        </TouchableOpacity>
+                        style= {{borderRadius: 10, padding: 10, margin: 10, backgroundColor: "#E8FCE5"}}
+                        underlayColor='#fff'>
+                        <Text style={{textAlign: "center"}}>Pay</Text>
+                    </TouchableOpacity>
                 </ScrollView>
             </View>
         );

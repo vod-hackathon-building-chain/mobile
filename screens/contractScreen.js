@@ -123,7 +123,7 @@ export default class ContractScreen extends React.Component {
         return (
             <View>
                 <Text style={{padding:20, fontSize: 25}}>Building Info</Text>
-                <View style={[styles.header, {marginLeft: 10,borderLeftColor: "black", borderLeftWidth: 2}]} flexDirection="horizontal" alignItems="left" paddingLeft="3%" >
+                <View style={[styles.header, {marginRight: 10,borderRightColor: "black", borderRightWidth: 2 ,marginLeft: 10,borderLeftColor: "black", borderLeftWidth: 2, flexDirection: "column"}]} paddingLeft="3%" >
                     <Text style={{fontSize: 15}}>Area {this.building.area}</Text>
                     <Text style={{fontSize: 15}}>City {this.building.city}</Text>
                     <Text style={{fontSize: 15}}>Address {this.building.address}</Text>
@@ -192,16 +192,10 @@ export default class ContractScreen extends React.Component {
                     <View style={styles.header}>
                         <Text style={styles.headerText}>{this.building.name}</Text>
                         <TouchableOpacity
-                            style={styles.headerBtn}
-                            backgroundColor="#C3F3BC"
-                            onPress={this.publish}>
-                            <Button
-                                onPress={this.publish}
-                                title="Accept"
-                                color="black"
-                                backgroundColor="#C3F3BC"
-                            />
-                        </TouchableOpacity>
+                            style= {{borderColor:"#78D569", borderRadius: 10, borderWidth: 3, padding: 10, color: "white", backgroundColor: "white"}}
+                            underlayColor='#fff'>
+                            <Text >Accept</Text>
+                        </TouchableOpacity>                 
                     </View>
 
                     <View>
