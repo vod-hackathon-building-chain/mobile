@@ -2,6 +2,7 @@ import React from 'react';
 import { ExpoConfigView } from '@expo/samples';
 import { Alert, Button, Text, TouchableOpacity, TextInput, View, StyleSheet } from 'react-native';
 import { Dimensions } from "react-native";
+import { BACKEND } from '../constants/Backend';
 
 export default class LoginScreen extends React.Component {
     static navigationOptions = {
@@ -13,7 +14,7 @@ export default class LoginScreen extends React.Component {
     constructor(props) {
         super(props);
         this.navigation = this.props.navigation;
-        this.state = { email: 'building_chain@blockchain.com', password: '12345678' };
+        this.state = { email: 'building_chain@blockchain.com', password: 'password' };
     }
     
 
@@ -22,7 +23,7 @@ export default class LoginScreen extends React.Component {
         return re.test(String(email).toLowerCase());
     }
 
-    login = () => {
+    login = async () => {
         if (this.state.email === "" || this.state.password === "") {
             Alert.alert('Credentials', `email or password is not valid`);
             return;
@@ -33,7 +34,24 @@ export default class LoginScreen extends React.Component {
             return;
         }
 
-        this.navigation.replace("Home");
+        const rawResponse = await fetch(BACKEND.LOGIN, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: this.state.email,
+                password: this.state.password
+            })
+        });
+        console.log(rawResponse)
+        if(rawResponse.status != 200) {
+            Alert.alert("you credential is wrong")
+        }else {
+            Alert.alert('', `success`);
+            this.navigation.replace("Home");
+        }
     }
 
     render() {
@@ -71,7 +89,7 @@ export default class LoginScreen extends React.Component {
                 <TouchableOpacity
                     onPress={() => this.navigation.navigate("SignUp")}>
                     <Text
-                        onPress={this.login}
+                        onPress={() => this.navigation.navigate("SignUp")}
                         fontSize="25"
                     >Sign Up</Text>
                 </TouchableOpacity>

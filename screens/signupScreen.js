@@ -3,6 +3,7 @@ import { ExpoConfigView } from '@expo/samples';
 import { Alert, Button, Text, TouchableOpacity, TextInput, View, StyleSheet } from 'react-native';
 import { Dimensions } from "react-native";
 import { white } from 'ansi-colors';
+import { BACKEND } from '../constants/Backend';
 
 export default class SignUpScreen extends React.Component {
     static navigationOptions = {
@@ -13,7 +14,8 @@ export default class SignUpScreen extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { email: '', password: '', username:'', fname: '', sname: '' };
+        this.navigation = this.props.navigation;
+        this.state = { email: 'building_chain@blockchain.com', password: 'password', username:'building', fname: 'ahmed', sname: 'nasser', phone: '01234567891' };
     }
 
     validateEmail(email) {
@@ -21,7 +23,7 @@ export default class SignUpScreen extends React.Component {
         return re.test(String(email).toLowerCase());
     }
 
-    signUp = () => {
+    signUp = async () => {
         
         if (this.state.email === "" || this.state.password === "") {
             Alert.alert('Credentials', `email or password is not valid`);
@@ -33,8 +35,27 @@ export default class SignUpScreen extends React.Component {
             return;
         }
 
-        Alert.alert('Credentials', `Success`);
-
+        let res = await fetch(BACKEND.REGISTER, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: `${this.state.fname}-${this.state.sname}`,
+                email: this.state.email,
+                phone: this.state.phone,
+                password: this.state.phone,
+                role: "User"
+            })
+        });
+        console.log(res);
+        if (res.status == 200) {
+            this.navigation.replace("Home");
+        } else {
+            console.log(res)
+            Alert.alert("there is error in the info")
+        }
     }
 
     render() {
@@ -69,6 +90,14 @@ export default class SignUpScreen extends React.Component {
                     keyboardType = 'email-address'
                     onChangeText={(email) => this.setState({ email })}
                     placeholder='Email'
+                    placeholderTextColor = 'black'
+                    style={main.input}
+                />
+                <TextInput
+                    value={this.state.phone}
+                    keyboardType = 'phone-address'
+                    onChangeText={(phone) => this.setState({ phone })}
+                    placeholder='Phone'
                     placeholderTextColor = 'black'
                     style={main.input}
                 />
