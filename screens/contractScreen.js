@@ -199,7 +199,6 @@ export default class ContractScreen extends React.Component {
                                 onPress={this.publish}
                                 title="Accept"
                                 color="black"
-                                borderRadius= "55"
                                 backgroundColor="#C3F3BC"
                             />
                         </TouchableOpacity>

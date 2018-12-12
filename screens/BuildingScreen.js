@@ -75,19 +75,20 @@ export default class BuildingScreen extends React.Component {
                         <Text style={styles.headerText}>{this.building.name}</Text>
                         <TouchableOpacity
                             style={styles.headerBtn}
-                            backgroundColor="#C3F3BC"
+                            borderRadius="5"
+                            borderWidth="1"
+                            borderColor="#C3F3BC"
                             onPress={this.publish}>
-                            <Button
+                            <Text
+                                borderRadius="5"
+                                borderWidth="1"
+                                borderColor="#C3F3BC"
                                 onPress={this.publish}
-                                title="Publish"
-                                color="black"
-                                borderRadius= "55"
-                                backgroundColor="#C3F3BC"
-                            />
+                            >Publish</Text>
                         </TouchableOpacity>
                     </View>
 
-                    <View style={[styles.header, {marginLeft: 10,borderLeftColor: "black", borderLeftWidth: 2}]} flexDirection="horizontal" alignItems="left" paddingLeft="3%" >
+                    <View style={[styles.header, {marginRight: 10, marginLeft: 10,borderRightColor: "black", borderLeftColor: "black", borderLeftWidth: 2, borderRightWidth: 2}]} flexDirection="column" paddingLeft="3%" >
                         <Text style={{fontSize: 15}}>Area {this.building.area}</Text>
                         <Text style={{fontSize: 15}}>City {this.building.city}</Text>
                         <Text style={{fontSize: 15}}>Address {this.building.address}</Text>

@@ -62,26 +62,26 @@ export default class LoginScreen extends React.Component {
                 <TouchableOpacity
                     style={main.button}
                     onPress={this.login}>
-                    <Button
+                    <Text
                         onPress={this.login}
-                        title="Login"
-                        color="black"
-                    />
+                        fontSize="25"
+                    >Login</Text>
                 </TouchableOpacity>
 
-                <Button
-                    style={main.secondBtn}
-                    onPress={() => this.navigation.navigate("SignUp")}
-                    title="Sign Up"
-                    color="black"
-                />
-                    
+                <TouchableOpacity
+                    onPress={() => this.navigation.navigate("SignUp")}>
+                    <Text
+                        onPress={this.login}
+                        fontSize="25"
+                    >Sign Up</Text>
+                </TouchableOpacity>
             </View>
         );
     }
 }
 
 var width = Dimensions.get('window').width; //full width
+
 
 
 const main = StyleSheet.create({

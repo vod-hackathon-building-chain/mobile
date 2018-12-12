@@ -9,6 +9,8 @@ import {
   View,
 } from 'react-native';
 import { CheckBox, List, ListItem, FlatList, Avatar} from 'react-native-elements'
+import { Dimensions } from "react-native";
+
 
 export default class HomeScreen extends React.Component {
     static navigationOptions = {
@@ -28,7 +30,7 @@ export default class HomeScreen extends React.Component {
                 <View>
                     <Text style={styles.titleText}>Building</Text>
                     <List>
-                        {["one", "two", "three"].map(name => {
+                        {["one", "two", "three", "Four", "Five", "Six", "Seven", "Eight", "Nine"].map(name => {
                             return <ListItem
                                 onPress={() => this.navigation.navigate("Building")}
                                 title={`building one ${name}`}
@@ -84,36 +86,48 @@ export default class HomeScreen extends React.Component {
     render() {
         return (
             
-            <View style={styles.container}>
-                
-                <ScrollView style={styles.container}>
+            <View style={{height: height}}>
+                <View style={{height: 70}}>
+                    <View style={{flex: 1, flexDirection: 'row'}}>
+                        <View style={{width: width/2}} >
+                            <CheckBox
+                                style={styles.checkbox}
+                                center
+                                title='Building'
+                                checked={this.state.buildingChecked}
+                                onPress={() => this.setState({buildingChecked : !this.state.buildingChecked})}
+                            />
+                        </View>
+                        <View style={{width: width/2}} >
+                            <CheckBox
+                                style={styles.checkbox}
+                                center
+                                title='Contract'
+                                checked={this.state.contractChecked}
+                                onPress={() => this.setState({contractChecked : !this.state.contractChecked})}
+                            />
+                        </View>
+                    </View>
+                </View>
+                <ScrollView style={{}}>
                     {this.renderBuilding()}
                     <View style={styles.line}></View>
                     {this.renderContract()}
-                </ScrollView>
-
-                <View style={styles.tabBarInfoContainer}>
-                    <View style={styles.checkBoxContainer}>
-                        <CheckBox
-                            style={styles.checkbox}
-                            center
-                            title='Building'
-                            checked={this.state.buildingChecked}
-                            onPress={() => this.setState({buildingChecked : !this.state.buildingChecked})}
-                        />
-                        <CheckBox
-                            style={styles.checkbox}
-                            center
-                            title='Contract'
-                            checked={this.state.contractChecked}
-                            onPress={() => this.setState({contractChecked : !this.state.contractChecked})}
-                        />
-                    </View>
-                </View>
+                    
+                </ScrollView>     
+                {
+                    Platform.OS === 'ios'
+                    ? <View style={{height: 170}}></View>
+                    : <View style={{height: 125}}></View>
+                }
+                
             </View>
         );
     }
 }
+
+var height = Dimensions.get('window').height; //full width
+var width = Dimensions.get('window').width; //full width
 
 const styles = StyleSheet.create({
     line: {
@@ -139,21 +153,19 @@ const styles = StyleSheet.create({
         paddingLeft:10
     },
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#fff'
     },
     welcomeContainer: {
         alignItems: 'center',
-        marginTop: 10,
         marginBottom: 20,
     },
     checkbox: {
-        width: '40%',
+        width: '50%',
     },
     checkBoxContainer: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        height: 10
     },
     tabBarInfoContainer: {
         position: 'absolute',

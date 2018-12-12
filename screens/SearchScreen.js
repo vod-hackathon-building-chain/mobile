@@ -105,11 +105,6 @@ const styles = StyleSheet.create({
     checkbox: {
         width: '40%',
     },
-    checkBoxContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
     tabBarInfoContainer: {
         position: 'absolute',
         bottom: 0,
