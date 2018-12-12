@@ -14,6 +14,11 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "android":{
+        "package":"building.chain",
+        "versionCode":1 , 
+        "icon":"./assets/building/web_hi_res_512.png"
+    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },

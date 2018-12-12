@@ -28,29 +28,31 @@ export default class HomeScreen extends React.Component {
                 <View>
                     <Text style={styles.titleText}>Building</Text>
                     <List>
-                        <ListItem
-                            onPress={() => this.navigation.navigate("Building")}
-                            title='building one'
-                            subtitle={
-                                <View style={styles.subtitleView}>
-                                    <Text style={styles.ratingText}>City: giza</Text>
-                                    <Text style={styles.ratingText}>Location: el agoza street abo nour</Text>
-                                    <Text style={styles.ratingText}>area: 150m</Text>
-                                </View>
-                            }
-                            avatar={
-                                <Avatar
-                                large
-                                rounded
-                                icon={{name: 'home', type: 'font-awesome'}}
-                                />
-                            }
-                        />
+                        {["one", "two", "three"].map(name => {
+                            return <ListItem
+                                onPress={() => this.navigation.navigate("Building")}
+                                title={`building one ${name}`}
+                                subtitle={
+                                    <View style={styles.subtitleView}>
+                                        <Text style={styles.ratingText}>City: giza</Text>
+                                        <Text style={styles.ratingText}>Location: el agoza street abo nour</Text>
+                                        <Text style={styles.ratingText}>area: 150m</Text>
+                                    </View>
+                                }
+                                avatar={
+                                    <Avatar
+                                    large
+                                    rounded
+                                    icon={{name: 'home', type: 'font-awesome'}}
+                                    />
+                                }
+                            />
+                        })}
                     </List>
                 </View>
             );
     }
-//  height={`YOUR_HEIGHT`} width={`YOUR_WIDTH`
+
     renderContract = () => {
         if (this.state.contractChecked)
             return (
@@ -59,13 +61,19 @@ export default class HomeScreen extends React.Component {
                     <List>
                     <ListItem
                         title='building one'
+                        onPress={() => this.navigation.navigate("Contract")}
                         subtitle={
                             <View style={styles.subtitleView}>
                                 <View><Text style={styles.ratingText}>Status: Running</Text></View>
                                 <View><Text style={styles.ratingText}>Since 3 day</Text></View>
                             </View>
                         }
-                        avatar={require('./../assets/images/building-blocks.png')}
+                        avatar={
+                            <Avatar
+                            large
+                            rounded
+                            icon={{name: 'building', type: 'font-awesome'}}/>
+                        }
                     />
                     </List>
 

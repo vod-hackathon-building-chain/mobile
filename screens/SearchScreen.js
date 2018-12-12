@@ -10,16 +10,47 @@ import {
   Icon
 } from 'react-native';
 import { Dimensions } from "react-native";
-import { SearchBar } from 'react-native-elements'
+import { CheckBox, List, ListItem, FlatList, Avatar, SearchBar} from 'react-native-elements'
+
 export default class SearchScreen extends React.Component {
     static navigationOptions = {
         title: 'Search'
     };
 
+    constructor(props) {
+        super(props);
+        this.navigation = this.props.navigation;
+    }
+
+
     render() {
         return (
             <View style={styles.container}>
                 <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+                <List>
+                    {["one", "two", "three"].map(name => {
+                        return <ListItem
+                            onPress={() => this.navigation.navigate("Contract")}
+                            title={`Pay Building ${name}`}
+                            subtitle={
+                                <View style={styles.subtitleView}>
+                                    <Text style={[styles.ratingText, {fontSize: 20}]}>Price: 150k</Text>
+                                    <Text style={styles.ratingText}>City: giza</Text>
+                                    <Text style={styles.ratingText}>Location: el agoza street abo nour</Text>
+                                    <Text style={styles.ratingText}>area: 150m</Text>
+                                </View>
+                            }
+                            avatar={
+                                <Avatar
+                                large
+                                rounded
+                                icon={{name: 'home', type: 'font-awesome'}}
+                                />
+                            }
+                        />
+                    })}
+                    
+                </List>
                 </ScrollView>
 
                 <View style={styles.tabBarInfoContainer}>
@@ -40,67 +71,36 @@ var width = Dimensions.get('window').width; //full width
 
 
 const styles = StyleSheet.create({
+    line: {
+        marginTop: 15
+    },
+    card: {
+        backgroundColor: "grey"
+    },
+    subtitleView: {
+        paddingLeft: 10,
+        paddingTop: 5
+    },
+    ratingImage: {
+        height: 19.21,
+        width: 100
+    },
+    ratingText: {
+        paddingLeft: 10,
+        color: 'grey'
+    },
     titleText:{
-         
-        fontSize: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    titleText2: {
-         
-        fontSize: 40,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    searchBar: {
-        backgroundColor: "white"
+        fontSize: 30,
+        paddingLeft:10
     },
     container: {
         flex: 1,
         backgroundColor: '#fff',
     },
-    developmentModeText: {
-        marginBottom: 20,
-        color: 'rgba(0,0,0,0.4)',
-        fontSize: 14,
-        lineHeight: 19,
-        textAlign: 'center',
-    },
-    contentContainer: {
-        paddingTop: 30,
-    },
     welcomeContainer: {
         alignItems: 'center',
         marginTop: 10,
         marginBottom: 20,
-    },
-    welcomeImage: {
-        width: 100,
-        height: 80,
-        resizeMode: 'contain',
-        marginTop: 3,
-        marginLeft: -10,
-    },
-    getStartedContainer: {
-        alignItems: 'center',
-        marginHorizontal: 50,
-    },
-    homeScreenFilename: {
-        marginVertical: 7,
-    },
-    codeHighlightText: {
-        color: 'rgba(96,100,109, 0.8)',
-    },
-    codeHighlightContainer: {
-        backgroundColor: 'rgba(0,0,0,0.05)',
-        borderRadius: 3,
-        paddingHorizontal: 4,
-    },
-    getStartedText: {
-        fontSize: 17,
-        color: 'rgba(96,100,109, 1)',
-        lineHeight: 24,
-        textAlign: 'center',
     },
     checkbox: {
         width: '40%',
@@ -112,40 +112,22 @@ const styles = StyleSheet.create({
     },
     tabBarInfoContainer: {
         position: 'absolute',
-        top: 0,
+        bottom: 0,
         left: 0,
         right: 0,
-        width: width,
         ...Platform.select({
-            ios: {
-                shadowColor: 'black',
-                shadowOffset: { height: -3 },
-                shadowOpacity: 0.1,
-                shadowRadius: 3,
-            },
-            android: {
-                elevation: 20,
-            },
+        ios: {
+            shadowColor: 'black',
+            shadowOffset: { height: -3 },
+            shadowOpacity: 0.1,
+            shadowRadius: 3,
+        },
+        android: {
+            elevation: 20,
+        },
         }),
         alignItems: 'center',
-    },
-    tabBarInfoText: {
-        fontSize: 17,
-        color: 'rgba(96,100,109, 1)',
-        textAlign: 'center',
-    },
-    navigationFilename: {
-        marginTop: 5,
-    },
-    helpContainer: {
-        marginTop: 15,
-        alignItems: 'center',
-    },
-    helpSearch: {
-        paddingVertical: 15,
-    },
-    helpSearchText: {
-        fontSize: 14,
-        color: '#2e78b7',
-    },
+        backgroundColor: '#fbfbfb',
+        paddingVertical: 20,
+    }
 });

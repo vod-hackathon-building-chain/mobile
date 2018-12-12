@@ -3,12 +3,13 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import SearchScreen from '../screens/SearchScreen';
-import NotificationScreen from '../screens/NotificationScreen';
-import LoginScreen from '../screens/LoginScreen';
-import SignUpScreen from '../screens/SignupScreen';
-import BuildingScreen from '../screens/BuildingScreen';
+import HomeScreen from '../screens/homeScreen';
+import SearchScreen from '../screens/searchScreen';
+import NotificationScreen from '../screens/notificationScreen';
+import SignUpScreen from '../screens/signupScreen';
+import BuildingScreen from '../screens/buildingScreen';
+import LoginScreen from '../screens/loginScreen';
+import ContractScreen from '../screens/contractScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -21,8 +22,8 @@ HomeStack.navigationOptions = {
         focused={focused}
         name={
             Platform.OS === 'ios'
-            ? `ios-information-circle${focused ? '' : '-outline'}`
-            : 'md-information-circle'
+            ? `ios-home`
+            : 'md-home'
         }
         />
     ),
@@ -56,7 +57,7 @@ NotificationStack.navigationOptions = {
     tabBarIcon: ({ focused }) => (
         <TabBarIcon
         focused={focused}
-        name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+        name={Platform.OS === 'ios' ? 'ios-filing' : 'md-filing'}
         />
     ),
 };
@@ -68,7 +69,6 @@ export default createBottomTabNavigator({
 });
 
 export const AppNavigator = createStackNavigator({
-    
     Login: { screen: LoginScreen, header: null },
     SignUp: { screen: SignUpScreen, header: null},
     Home: { screen: createBottomTabNavigator({
@@ -78,6 +78,7 @@ export const AppNavigator = createStackNavigator({
         }),
     },
     Building: {screen: BuildingScreen, header: null},
+    Contract: {screen: ContractScreen}
 }, {
   headerMode: 'none',
   navigationOptions: {

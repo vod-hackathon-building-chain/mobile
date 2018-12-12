@@ -65,7 +65,7 @@ export default class LoginScreen extends React.Component {
                     <Button
                         onPress={this.login}
                         title="Login"
-                        color="#C3F3BC"
+                        color="black"
                     />
                 </TouchableOpacity>
 
@@ -73,7 +73,7 @@ export default class LoginScreen extends React.Component {
                     style={main.secondBtn}
                     onPress={() => this.navigation.navigate("SignUp")}
                     title="Sign Up"
-                    color="#C3F3BC"
+                    color="black"
                 />
                     
             </View>
