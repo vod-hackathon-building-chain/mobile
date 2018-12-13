@@ -7,47 +7,15 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Alert
 } from 'react-native';
 import { CheckBox, List, ListItem, FlatList, Avatar, Button} from 'react-native-elements'
 import { Dimensions } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { BACKEND } from '../constants/Backend';
 
 const buildingImage = require('../assets/images/map.png');
 
-class Building {
-    name = "Building one";
-    address = "el agoza ";
-    city = "giza";
-    electricity = new Building.Electricity();
-    gas = new Building.Gas();
-    water = new Building.Water();
-    id = 1;
-    latitude = 123;
-    longitudes = 22;
-    numberOfRooms = 2;
-    area = 150;
-    numberOfBathrooms = 1;
-    level = 5
-    isFurnitured = true
-
-    static Electricity = class {
-        totalReader = 16000;
-        monthReader = 1500;
-        totalToPay = 150;
-    }
-
-    static Water = class {
-        totalReader = 16500;
-        monthReader = 500;
-        totalToPay = 120;
-    }
-
-    static Gas = class {
-        totalReader = 1300;
-        monthReader = 130;
-        totalToPay = 59;
-    }
-}
 
 export default class BuildingScreen extends React.Component {
     static navigationOptions = {
@@ -56,13 +24,88 @@ export default class BuildingScreen extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { buildingChecked: true, contractChecked: true };
-        this.building = new Building();
+        this.navigation = this.props.navigation;
+        let b;
+        BACKEND.BUILDINGS.map(building => {
+            if (building.id == this.props.navigation.getParam('id')) {
+                b = {
+                    id: building.id,
+                    price: building["price"],
+                    name: building.address,
+                    area: building.area,
+                    city: building.city,
+                    floor: building.level,
+                    isFurnitured: building.isFurnitured,
+                    numberOfRooms: building.numberOfRooms,
+                    numberOfBathrooms: building.numberOfBathrooms,
+                    water: {
+                        totalReader: building.waterTotalReader,
+                        monthly: building.waterMonthReader,
+                        pay: building.waterTotalToPay,
+                    },
+                    gas: {
+                        totalReader: building.gasTotalReader,
+                        monthly: building.gasMonthReader,
+                        pay: building.gasTotalToPay,
+                    },
+                    electricity: {
+                        totalReader: building.electricityTotalReader,
+                        monthly: building.electricityMonthReader,
+                        pay: building.electricityTotalToPay,
+                    }
+                };
+            }
+        });
+        
+        this.state = { buildingChecked: true, contractChecked: true, building: b};
     }
 
-    publish = () => {
+    sell = async () => {
+        const res = await fetch(BACKEND.CONTRACT, 
+            {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    price: this.state.building.price,
+                    buildingId: this.state.building.id,
+                    status: "On Sale"
+                })
+            }
+        );
 
+        if (res.status == 200) {
+            this.navigation.replace("Home");
+        }else {
+            Alert.alert("This building is already on sale")
+        }
     }
+
+    getpay(obj, w) {
+        if (obj) {
+            return (
+                <View>
+                <View style={styles.electricity}>
+                <Text style={styles.Etitle} fontSize="30">Electricity</Text>
+                <View style={styles.Econtent}>
+                    <Text fontSize="8">Total Read: {obj.totalReader} {w}</Text>
+                    <Text fontSize="8">Current Read: {obj.monthly} {w}</Text>
+                    <Text fontSize="8">Amount to be pay: {obj.pay} EGP</Text>
+                </View>
+                </View>
+                <TouchableOpacity
+                    style= {{borderRadius: 10, padding: 10, margin: 10, backgroundColor: "#0062cc"}}
+                    underlayColor='#fff'>
+                    <Text style={{color: "white", fontSize: 20, textAlign: "center"}}>Pay</Text>
+                </TouchableOpacity>
+                </View>
+            );
+        }
+        
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -72,70 +115,32 @@ export default class BuildingScreen extends React.Component {
                         source={buildingImage}
                     />
                     <View style={styles.header}>
-                        <Text style={styles.headerText}>{this.building.name}</Text>
+                        <Text style={styles.headerText}>{this.state.building.name}</Text>
                             <TouchableOpacity
-                                style= {{borderColor:"#78D569", borderRadius: 10, borderWidth: 3, padding: 10, color: "white", backgroundColor: "white"}}
+                                onPress = {this.sell}
+                                style= {{borderColor:"#0062cc", borderRadius: 10, borderWidth: 3, padding: 10, color: "white", backgroundColor: "white"}}
                                 underlayColor='#fff'>
-                                <Text >Publish</Text>
+                                <Text style={{fontSize: 20}}>Sell</Text>
                             </TouchableOpacity>
                     </View>
 
                     <View style={[styles.header, {marginRight: 10, marginLeft: 10,borderRightColor: "black", borderLeftColor: "black", borderLeftWidth: 2, borderRightWidth: 2}]} flexDirection="column" paddingLeft="3%" >
-                        <Text style={{fontSize: 15}}>Area {this.building.area}</Text>
-                        <Text style={{fontSize: 15}}>City {this.building.city}</Text>
-                        <Text style={{fontSize: 15}}>Address {this.building.address}</Text>
-                        <Text style={{fontSize: 15}}>Level {this.building.level}</Text>
+                        <Text style={{fontSize: 15}}>Price: {this.state.building.price}</Text>
+                        <Text style={{fontSize: 15}}>Area: {this.state.building.area}</Text>
+                        <Text style={{fontSize: 15}}>City: {this.state.building.city}</Text>
+                        <Text style={{fontSize: 15}}>Floor: {this.state.building.floor}</Text>
                         
                         <Text></Text>
-                        <Text style={{fontSize: 15}}>{(this.building.isFurnitured) ? 'The building have furniture': 'There is no furniture'}</Text>
-                        <Text style={{fontSize: 15}}>N.Room {this.building.numberOfRooms}</Text>
-                        <Text style={{fontSize: 15}}>N.Bathroom {this.building.numberOfBathrooms}</Text>
+                        <Text style={{fontSize: 15}}>{(this.state.building.isFurnitured) ? 'The building has furniture': 'There is no furniture'}</Text>
+                        <Text style={{fontSize: 15}}>N.Room: {this.state.building.numberOfRooms}</Text>
+                        <Text style={{fontSize: 15}}>N.Bathroom: {this.state.building.numberOfBathrooms}</Text>
                         
                     </View>
 
 
-                    <View style={styles.electricity}>
-                        <Text style={styles.Etitle} fontSize="30">Electricity</Text>
-                        <View style={styles.Econtent}>
-                            <Text fontSize="8">Total Read : {this.building.electricity.totalReader}</Text>
-                            <Text fontSize="8">Current Read : {this.building.electricity.monthReader}</Text>
-                            <Text fontSize="8">my pays : {this.building.electricity.totalToPay}</Text>
-                        </View>
-                    </View>
-                    <TouchableOpacity
-                        style= {{borderRadius: 10, padding: 10, margin: 10, backgroundColor: "#E8FCE5"}}
-                        underlayColor='#fff'>
-                        <Text style={{textAlign: "center"}}>Pay</Text>
-                    </TouchableOpacity>
-                 
-
-                    <View style={styles.electricity}>
-                        <Text style={styles.Etitle} fontSize="30">Gas</Text>
-                        <View style={styles.Econtent}>
-                            <Text fontSize="8">Total Read : {this.building.gas.totalReader}</Text>
-                            <Text fontSize="8">Current Read : {this.building.gas.monthReader}</Text>
-                            <Text fontSize="8">my pays : {this.building.gas.totalToPay}</Text>
-                        </View>
-                    </View>
-                    <TouchableOpacity
-                        style= {{borderRadius: 10, padding: 10, margin: 10, backgroundColor: "#E8FCE5"}}
-                        underlayColor='#fff'>
-                        <Text style={{textAlign: "center"}}>Pay</Text>
-                    </TouchableOpacity>
-
-                    <View style={styles.electricity}>
-                        <Text style={styles.Etitle} fontSize="30">Water</Text>
-                        <View style={styles.Econtent}>
-                            <Text fontSize="8">Total Read : {this.building.water.totalReader}</Text>
-                            <Text fontSize="8">Current Read : {this.building.water.monthReader}</Text>
-                            <Text fontSize="8">my pays : {this.building.water.totalToPay}</Text>
-                        </View>
-                    </View>
-                    <TouchableOpacity
-                        style= {{borderRadius: 10, padding: 10, margin: 10, backgroundColor: "#E8FCE5"}}
-                        underlayColor='#fff'>
-                        <Text style={{textAlign: "center"}}>Pay</Text>
-                    </TouchableOpacity>
+                    {this.getpay(this.state.building.electricity, "kW")}
+                    {this.getpay(this.state.building.gas, "m3")}
+                    {this.getpay(this.state.building.water, "m3")}
                 </ScrollView>
             </View>
         );

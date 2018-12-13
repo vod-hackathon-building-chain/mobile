@@ -11,6 +11,7 @@ import {
 import { CheckBox, List, ListItem, FlatList, Avatar, Button} from 'react-native-elements'
 import { Dimensions } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { BACKEND } from '../constants/Backend';
 
 const buildingImage = require('../assets/images/contract.jpg');
 
@@ -71,9 +72,13 @@ export default class ContractScreen extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { buildingChecked: true, contractChecked: true };
-        this.contract = new Contract();
-        this.building = this.contract.building;
+        this.state = { buildingChecked: true, contractChecked: true};
+
+        BACKEND.CONTRACTS.map(contract => {
+            if (contract.id == this.props.navigation.getParam('id')) {
+                this.state.contract = contract;
+            }
+        })
     }
 
     publish = () => {
@@ -81,88 +86,112 @@ export default class ContractScreen extends React.Component {
     }
 
     renderBuyer() {
-        return (
-            <View style={[styles.user, {backgroundColor: "#E8FCE5"}]}>
-                <Text style={styles.type} fontSize="30">Buyer</Text>
-                <View style={styles.info}>
-                    <Text fontSize="8">{this.contract.buyer.name}</Text>
+        if (this.state.contract.buyer)
+            return (
+                <View style={[styles.user, {}]}>
+                    <Text style={styles.type} fontSize="30">Buyer</Text>
+                    <View style={styles.info}>
+                        <Text fontSize="8">{this.contract.buyer.name}</Text>
+                    </View>
+                    {(this.contract.approvedByBuyer == true) ? 
+                        <Text style={[styles.verified, {color: "green"}]}>Accepted</Text> : 
+                        <Text style={[styles.verified ,{color: "red"}]}>Not Accepted</Text>}
+                    
                 </View>
-                {(this.contract.verificationStep >= 1) ? 
-                    <Text style={[styles.verified, {color: "green"}]}>Accept</Text> : 
-                    <Text style={styles.verified}>Not Accept Yet</Text>}
-                
-            </View>
-        );
+            );
     }
 
     renderSeller() {
-        return (
-            <View style={[styles.user, {backgroundColor: "#E8FCE5"}]}>
-                <Text style={styles.type} fontSize="30">Seller</Text>
-                <View style={styles.info}>
-                    <Text fontSize="8">name: {this.contract.seller.name}</Text>
+        if (this.state.contract){
+            let owner = BACKEND.OWNER;
+            return (
+                <View style={[styles.user, {}]}>
+                    <Text style={styles.type}>Seller</Text>
+                    <View style={styles.info}>
+                        <Text fontSize="8">{owner.name}</Text>
+                    </View>
+                    {(this.contract.approvedBySeller == true) ? 
+                        <Text style={[styles.verified, {color: "green"}]}>Accepted</Text> : 
+                        <Text style={[styles.verified,{color: "red"}]}>Not Accepted</Text>}
                 </View>
-                {(this.contract.verificationStep >= 3) ? 
-                    <Text style={[styles.verified, {color: "green"}]}>Accept</Text> : 
-                    <Text style={styles.verified}>Not Accept Yet</Text>}
-            </View>
-        );
+            );
+        }
     }
 
     renderGovernmentStatus() {
+        this.contract = this.state.contract;
         return (
-            <View style={[styles.user, {backgroundColor: "#E8FCE5"}]}>
-                <Text style={[styles.type, {width: width/5 * 2}]} fontSize="25">Government</Text>
-                <View style={[styles.verified, {width: width/5 * 3}]}>{(this.contract.verificationStep == 4) ? 
-                    <Text style={{color: "green"}}>Accept</Text> : <Text>Not Accept Yet</Text>}</View>
+            <View style={[styles.user, {}]}>
+                <Text style={[styles.type, {fontSize: 12}]}>Government</Text>
+                <View style={styles.info}>
+                    <Text></Text>
+                </View>
+              {(this.contract.approvedByGovernment == true) ? 
+                    <Text style={[styles.verified, {color: "green"}]}>Accepted</Text> : 
+                    <Text style={[styles.verified,{color: "red"}]}>Not Accepted</Text>}
             </View>
         );
     }
 
     renderBuildingInfo() {
+        this.building = this.state.contract.building;
         return (
             <View>
-                <Text style={{padding:20, fontSize: 25}}>Building Info</Text>
-                <View style={[styles.header, {marginRight: 10,borderRightColor: "black", borderRightWidth: 2 ,marginLeft: 10,borderLeftColor: "black", borderLeftWidth: 2, flexDirection: "column"}]} paddingLeft="3%" >
-                    <Text style={{fontSize: 15}}>Area {this.building.area}</Text>
-                    <Text style={{fontSize: 15}}>City {this.building.city}</Text>
-                    <Text style={{fontSize: 15}}>Address {this.building.address}</Text>
-                    <Text style={{fontSize: 15}}>Level {this.building.level}</Text>
+                <View style={[styles.user, {}]}>
+                    <View style={[styles.type, {fontSize: 12}]}>
+                        <Text >Building</Text>
+                        <Text >Info</Text>
+                    </View>
                     
-                    <Text></Text>
-                    <Text style={{fontSize: 15}}>{(this.building.isFurnitured) ? 'The building have furniture': 'There is no furniture'}</Text>
-                    <Text style={{fontSize: 15}}>N.Room {this.building.numberOfRooms}</Text>
-                    <Text style={{fontSize: 15}}>N.Bathroom {this.building.numberOfBathrooms}</Text>
+                    <View style={[styles.info, {width: width/4 * 3}]}>
+                        <Text style={{fontSize: 15}}>Area {this.building.area}</Text>
+                        <Text style={{fontSize: 15}}>City {this.building.city}</Text>
+                        <Text style={{fontSize: 15}}>Address {this.building.address}</Text>
+                        <Text style={{fontSize: 15}}>Level {this.building.level}</Text>
+                        
+                        <Text></Text>
+                        <Text style={{fontSize: 15}}>{(this.building.isFurnitured) ? 'The building have furniture': 'There is no furniture'}</Text>
+                        <Text style={{fontSize: 15}}>N.Room {this.building.numberOfRooms}</Text>
+                        <Text style={{fontSize: 15}}>N.Bathroom {this.building.numberOfBathrooms}</Text>
+                    </View>
+                </View>
+
+                <View style={[styles.user, {}]}>
+                    <View style={[styles.type, {fontSize: 12}]}>
+                        <Text >Electricity</Text>
+                    </View>
                     
-                </View>
-
-
-                <View style={styles.electricity}>
-                    <Text style={styles.Etitle} fontSize="30">Electricity</Text>
-                    <View style={styles.Econtent}>
-                        <Text fontSize="8">Total Read : {this.building.electricity.totalReader}</Text>
-                        <Text fontSize="8">Current Read : {this.building.electricity.monthReader}</Text>
-                        <Text fontSize="8">my pays : {this.building.electricity.totalToPay}</Text>
+                    <View style={[styles.info, {width: width/4 * 3}]}>
+                        <Text fontSize="8">Total Read: {this.building.electricityTotalReader} kW</Text>
+                        <Text fontSize="8">Current Read: {this.building.electricityMonthReader} kW</Text>
+                        <Text fontSize="8">Amount to be pay: {this.building.electricityTotalToPay} EGP</Text>
                     </View>
                 </View>
 
-                <View style={styles.electricity}>
-                    <Text style={styles.Etitle} fontSize="30">Gas</Text>
-                    <View style={styles.Econtent}>
-                        <Text fontSize="8">Total Read : {this.building.gas.totalReader}</Text>
-                        <Text fontSize="8">Current Read : {this.building.gas.monthReader}</Text>
-                        <Text fontSize="8">my pays : {this.building.gas.totalToPay}</Text>
+                <View style={[styles.user, {}]}>
+                    <View style={[styles.type, {fontSize: 12}]}>
+                        <Text >Gas</Text>
+                    </View>
+                    
+                    <View style={[styles.info, {width: width/4 * 3}]}>
+                        <Text fontSize="8">Total Read: {this.building.gasTotalReader} m3</Text>
+                        <Text fontSize="8">Current Read: {this.building.gasMonthReader} m3</Text>
+                        <Text fontSize="8">Amount to be pay: {this.building.gasTotalToPay} EGP</Text>
                     </View>
                 </View>
 
-                <View style={styles.electricity}>
-                    <Text style={styles.Etitle} fontSize="30">Water</Text>
-                    <View style={styles.Econtent}>
-                        <Text fontSize="8">Total Read : {this.building.water.totalReader}</Text>
-                        <Text fontSize="8">Current Read : {this.building.water.monthReader}</Text>
-                        <Text fontSize="8">my pays : {this.building.water.totalToPay}</Text>
+                <View style={[styles.user, {}]}>
+                    <View style={[styles.type, {fontSize: 12}]}>
+                        <Text >Water</Text>
+                    </View>
+                    
+                    <View style={[styles.info, {width: width/4 * 3}]}>
+                        <Text fontSize="8">Total Read: {this.building.waterTotalReader} m3</Text>
+                        <Text fontSize="8">Current Read: {this.building.waterMonthReader} m3</Text>
+                        <Text fontSize="8">Amount to be pay: {this.building.waterTotalToPay} EGP</Text>
                     </View>
                 </View>
+                
             </View>
         );
     }
@@ -177,11 +206,14 @@ export default class ContractScreen extends React.Component {
             <Text>- you accept to buy to the government Water</Text>
             <Text>- you accept to buy to the government Gas</Text>
             <Text>- you accept to buy to the government Electricity</Text>
-            <Text>- you accept to transfer the builing owenr to {this.contract.seller.name}</Text>
+            <Text>- you accept to transfer the builing owenrship</Text>
         </View>)
     }
 
     render() {
+        if(!this.state.contract) {
+            return <View></View>
+        }else {
         return (
             <View style={styles.container}>
                 <ScrollView style={styles.container}>
@@ -190,12 +222,16 @@ export default class ContractScreen extends React.Component {
                         source={buildingImage}
                     />
                     <View style={styles.header}>
-                        <Text style={styles.headerText}>{this.building.name}</Text>
-                        <TouchableOpacity
-                            style= {{borderColor:"#78D569", borderRadius: 10, borderWidth: 3, padding: 10, color: "white", backgroundColor: "white"}}
-                            underlayColor='#fff'>
-                            <Text >Accept</Text>
-                        </TouchableOpacity>                 
+                        <Text style={styles.headerText}>{this.state.contract.building.address}</Text>
+                        { (this.state.contract.buyer) ? 
+                            <TouchableOpacity
+                                style= {{borderColor:"#0062cc", borderRadius: 10, borderWidth: 3, padding: 10, color: "white", backgroundColor: "white"}}
+                                underlayColor='#fff'>
+                                <Text style={{color: "black", fontSize: 20}}>Accept</Text>
+                            </TouchableOpacity>                 
+                             : <Text></Text>
+                        }
+
                     </View>
 
                     <View>
@@ -209,6 +245,7 @@ export default class ContractScreen extends React.Component {
                 </ScrollView>
             </View>
         );
+        }
     }
 }
 
@@ -223,7 +260,6 @@ const styles = StyleSheet.create({
         padding: 15,
         width: width/4,
         borderLeftWidth: 1,
-        borderRightWidth: 1,
         borderLeftColor: "black"
     },
     verified: {
@@ -245,7 +281,7 @@ const styles = StyleSheet.create({
     },
     Econtent: {
         width: width/4 * 3, 
-        borderLeftWidth: 2,
+        borderLeftWidth: 1,
         paddingLeft: 10,
         borderLeftColor: "black"
     },

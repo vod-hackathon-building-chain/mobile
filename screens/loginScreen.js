@@ -45,11 +45,13 @@ export default class LoginScreen extends React.Component {
                 password: this.state.password
             })
         });
-        console.log(rawResponse)
+
+        
         if(rawResponse.status != 200) {
             Alert.alert("you credential is wrong")
         }else {
-            Alert.alert('', `success`);
+            user = await rawResponse.json();
+            BACKEND.OWNER = user["user"];
             this.navigation.replace("Home");
         }
     }
@@ -82,7 +84,7 @@ export default class LoginScreen extends React.Component {
                     onPress={this.login}>
                     <Text
                         onPress={this.login}
-                        fontSize="25"
+                        style={{color: "white", fontSize: 20}}
                     >Login</Text>
                 </TouchableOpacity>
 
@@ -90,7 +92,7 @@ export default class LoginScreen extends React.Component {
                     onPress={() => this.navigation.navigate("SignUp")}>
                     <Text
                         onPress={() => this.navigation.navigate("SignUp")}
-                        fontSize="25"
+                        style={{color: "white", fontSize: 20}}
                     >Sign Up</Text>
                 </TouchableOpacity>
             </View>
@@ -107,28 +109,27 @@ const main = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#E8FCE5',
+    backgroundColor: '#343a40',
   },
   titleText:{
-     
+     color: "white",
     fontSize: 50,
     alignItems: 'center',
     justifyContent: 'center',
   },
   titleText2: {
-     
+     color: "white",
     fontSize: 40,
     alignItems: 'center',
-    justifyContent: 'center',
-
+    justifyContent: 'center'
   },
   button: {
     alignItems: 'center',
-    backgroundColor: '#C3F3BC',
+    backgroundColor: '#0062cc',
+    
     width: 200,
     marginBottom: 20,
     padding: 10,
-    borderWidth: 1,
     borderColor: 'white',
     borderRadius: 10,
     marginBottom: 10,
@@ -136,7 +137,7 @@ const main = StyleSheet.create({
   secondBtn: {
     alignItems: 'center',
     width: 200,
-    color: "#C3F3BC",
+    color: "#0062cc",
     marginBottom: 20,
     padding: 10,
     borderWidth: 1,

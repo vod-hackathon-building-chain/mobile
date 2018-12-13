@@ -49,11 +49,9 @@ export default class SignUpScreen extends React.Component {
                 role: "User"
             })
         });
-        console.log(res);
         if (res.status == 200) {
             this.navigation.replace("Home");
         } else {
-            console.log(res)
             Alert.alert("there is error in the info")
         }
     }
@@ -140,7 +138,7 @@ const main = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#E8FCE5',
+    backgroundColor: '#0062cc',
   },
   titleText:{
      

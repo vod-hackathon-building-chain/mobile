@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { CheckBox, List, ListItem, FlatList, Avatar} from 'react-native-elements'
 import { Dimensions } from "react-native";
+import { BACKEND } from '../constants/Backend';
 
 
 export default class HomeScreen extends React.Component {
@@ -20,25 +21,62 @@ export default class HomeScreen extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { buildingChecked: true, contractChecked: true };
+        this.state = { buildingChecked: true, contractChecked: true , building: []};
         this.navigation = this.props.navigation;
+        this.getBuilding();
+        this.getContract();
+    }
+
+    getContract = async() => {
+        let res = await fetch(`${BACKEND.CONTRACT}`);
+        res = await res.json();
+        BACKEND.CONTRACTS = res;
+        let array = [];
+        res.map(contract => {
+            if (contract.building.ownerId === BACKEND.OWNER.id) {
+                array.push(contract);
+            }
+        })
+        this.setState({contract: array});
+    }
+
+    getBuilding = async () => {
+        let res = await fetch(`${BACKEND.BUILDING}/${BACKEND.OWNER.id}`);
+        res = await res.json();
+        
+        let array = [];
+        
+        res.map(object => {
+            BACKEND.BUILDINGS.push(object);
+            array.push({
+                address: object["address"],    
+                area: object["area"],
+                city: object["city"],
+                level: object["level"],
+                id: object["id"]
+            })
+        })
+        this.setState({building: array});
     }
 
     renderBuilding = () => {
-        if (this.state.buildingChecked)
+        if (this.state.buildingChecked && this.state.building)
             return (                
                 <View>
                     <Text style={styles.titleText}>Building</Text>
                     <List>
-                        {["one", "two", "three", "Four", "Five", "Six", "Seven", "Eight", "Nine"].map(name => {
+                        {this.state.building.map(building => {
                             return <ListItem
-                                onPress={() => this.navigation.navigate("Building")}
-                                title={`building one ${name}`}
+                                onPress={() => this.navigation.navigate("Building", {
+                                    id: building.id
+                                })}
+                                key={building.id}
+                                title={`${building.address}`}
                                 subtitle={
                                     <View style={styles.subtitleView}>
-                                        <Text style={styles.ratingText}>City: giza</Text>
-                                        <Text style={styles.ratingText}>Location: el agoza street abo nour</Text>
-                                        <Text style={styles.ratingText}>area: 150m</Text>
+                                        <Text style={styles.ratingText}>City: {building.city}</Text>
+                                        <Text style={styles.ratingText}>Area: {building.area} M2</Text>
+                                        <Text style={styles.ratingText}>Floor: {building.level}</Text>
                                     </View>
                                 }
                                 avatar={
@@ -56,31 +94,38 @@ export default class HomeScreen extends React.Component {
     }
 
     renderContract = () => {
-        if (this.state.contractChecked)
-            return (
-                <View>
-                    <Text style={styles.titleText}>Contracts</Text>
-                    <List>
-                    <ListItem
-                        title='building one'
-                        onPress={() => this.navigation.navigate("Contract")}
-                        subtitle={
-                            <View style={styles.subtitleView}>
-                                <View><Text style={styles.ratingText}>Status: Running</Text></View>
-                                <View><Text style={styles.ratingText}>Since 3 day</Text></View>
-                            </View>
-                        }
-                        avatar={
-                            <Avatar
-                            large
-                            rounded
-                            icon={{name: 'building', type: 'font-awesome'}}/>
-                        }
-                    />
-                    </List>
-
-                </View>
-            );
+        let res = []
+        if (this.state.contractChecked && this.state.contract){
+            this.state.contract.map(contract => {
+                res.push(contract);
+            })
+        }
+        return (
+            <View>
+                <Text style={styles.titleText}>Contract</Text>
+                <List>
+                    {res.map(contract => {
+                        return <ListItem
+                            key={contract.id}
+                            title = {contract.building.address}
+                            onPress={() => this.navigation.navigate("Contract", {id: contract.id})}
+                            subtitle={
+                                <View style={styles.subtitleView}>
+                                    <View><Text style={styles.ratingText}>Status: {contract.status}</Text></View>
+                                    <View><Text style={styles.ratingText}>Price: {contract.price}</Text></View>
+                                </View>
+                            }
+                            avatar={
+                                <Avatar
+                                large
+                                rounded
+                                icon={{name: 'building', type: 'font-awesome'}}/>
+                            }
+                        />
+                    })}
+                </List>
+            </View>
+        );
     }
 
     render() {

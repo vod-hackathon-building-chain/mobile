@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { Dimensions } from "react-native";
 import { CheckBox, List, ListItem, FlatList, Avatar, SearchBar} from 'react-native-elements'
+import { BACKEND } from '../constants/Backend';
 
 export default class SearchScreen extends React.Component {
     static navigationOptions = {
@@ -20,37 +21,56 @@ export default class SearchScreen extends React.Component {
     constructor(props) {
         super(props);
         this.navigation = this.props.navigation;
+        this.state = { contract: []};
+        this.getContract();
     }
 
+    getContract = async() => {
+        let res = await fetch(`${BACKEND.A_CONTRACT}`);
+        res = await res.json();
+        this.setState({contract: res});
+    }
+
+    renderContract = () => {
+        if (this.state.contract) {
+            let res = []
+            this.state.contract.map(contract => {
+                res.push(contract);
+            })
+            return (
+                <View>
+                    <Text style={styles.titleText}>Contract</Text>
+                    <List>
+                        {res.map(contract => {
+                            return <ListItem
+                                title = {contract.building.address}
+                                onPress={() => this.navigation.navigate("Contract", {id: contract.id})}
+                                subtitle={
+                                    <View style={styles.subtitleView}>
+                                        <View><Text style={styles.ratingText}>Status: {contract.status}</Text></View>
+                                        <View><Text style={styles.ratingText}>Price: {contract.price}</Text></View>
+                                    </View>
+                                }
+                                avatar={
+                                    <Avatar
+                                    large
+                                    rounded
+                                    icon={{name: 'building', type: 'font-awesome'}}/>
+                                }
+                            />
+                        })}
+                    </List>
+                </View>
+            );
+        }
+        
+    }
 
     render() {
         return (
             <View style={styles.container}>
                 <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-                <List>
-                    {["one", "two", "three"].map(name => {
-                        return <ListItem
-                            onPress={() => this.navigation.navigate("Contract")}
-                            title={`Pay Building ${name}`}
-                            subtitle={
-                                <View style={styles.subtitleView}>
-                                    <Text style={[styles.ratingText, {fontSize: 20}]}>Price: 150k</Text>
-                                    <Text style={styles.ratingText}>City: giza</Text>
-                                    <Text style={styles.ratingText}>Location: el agoza street abo nour</Text>
-                                    <Text style={styles.ratingText}>area: 150m</Text>
-                                </View>
-                            }
-                            avatar={
-                                <Avatar
-                                large
-                                rounded
-                                icon={{name: 'home', type: 'font-awesome'}}
-                                />
-                            }
-                        />
-                    })}
-                    
-                </List>
+                    {this.renderContract()}
                 </ScrollView>
 
                 <View style={styles.tabBarInfoContainer}>
