@@ -28,14 +28,8 @@ export default class BuildingScreen extends React.Component {
         super(props);
         this.navigation = this.props.navigation;
         let self = this;
-        
-        const didBlurSubscription = this.props.navigation.addListener(
-            'willFocus',
-            payload => {
-                    self.update();
-            }
-        );
-        this.state = { buildingChecked: true, contractChecked: true, building: [], refreshing: false};
+        this.state = { buildingChecked: true, contractChecked: true, building: [], refreshing: true};
+        this.update();
     }
 
     async update() {
