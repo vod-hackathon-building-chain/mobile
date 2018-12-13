@@ -30,7 +30,7 @@ export default class SearchScreen extends React.Component {
         await BACKEND.UPDATE();
         let contracts = [];
         BACKEND.CONTRACTS.map(contract => {
-            if (contract.status === "On Sale") {
+            if (contract.status === "On Sale" && contract.approvedByGovernment == 1) {
                 contracts.push(contract);
             }
         })

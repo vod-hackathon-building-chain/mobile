@@ -92,12 +92,12 @@ export default class BuildingScreen extends React.Component {
         }
     }
 
-    getpay(obj, w) {
+    getpay(obj, w, info) {
         if (obj) {
             return (
                 <View>
                 <View style={styles.electricity}>
-                <Text style={styles.Etitle} fontSize="30">Electricity</Text>
+                <Text style={styles.Etitle} fontSize="30">{info}</Text>
                 <View style={styles.Econtent}>
                     <Text fontSize="8">Total Read: {obj.totalReader} {w}</Text>
                     <Text fontSize="8">Current Read: {obj.monthly} {w}</Text>
@@ -160,9 +160,9 @@ export default class BuildingScreen extends React.Component {
                     </View>
 
 
-                    {this.getpay(this.state.building.electricity, "kW")}
-                    {this.getpay(this.state.building.gas, "m3")}
-                    {this.getpay(this.state.building.water, "m3")}
+                    {this.getpay(this.state.building.electricity, "kW", "Electricity")}
+                    {this.getpay(this.state.building.gas, "m3", "Gas")}
+                    {this.getpay(this.state.building.water, "m3", "Water")}
                 </ScrollView>
             </View>
         );
