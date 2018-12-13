@@ -3,6 +3,7 @@ import { ExpoConfigView } from '@expo/samples';
 import { Alert, Button, Text, TouchableOpacity, TextInput, View, StyleSheet } from 'react-native';
 import { Dimensions } from "react-native";
 import { BACKEND } from '../constants/Backend';
+import {AppState} from 'react-native'
 
 export default class LoginScreen extends React.Component {
     static navigationOptions = {
@@ -14,9 +15,10 @@ export default class LoginScreen extends React.Component {
     constructor(props) {
         super(props);
         this.navigation = this.props.navigation;
-        this.state = { email: 'building_chain@blockchain.com', password: 'password' };
+        this.state = { email: 'building_chain@blockchain.com', password: 'password', appState: {}};
     }
     
+
 
     validateEmail(email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

@@ -7,12 +7,14 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Alert
+  Alert,
+  RefreshControl
 } from 'react-native';
 import { CheckBox, List, ListItem, FlatList, Avatar, Button} from 'react-native-elements'
 import { Dimensions } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { BACKEND } from '../constants/Backend';
+
 
 const buildingImage = require('../assets/images/map.png');
 
@@ -25,6 +27,19 @@ export default class BuildingScreen extends React.Component {
     constructor(props) {
         super(props);
         this.navigation = this.props.navigation;
+        let self = this;
+        
+        const didBlurSubscription = this.props.navigation.addListener(
+            'willFocus',
+            payload => {
+                    self.update();
+            }
+        );
+        this.state = { buildingChecked: true, contractChecked: true, building: [], refreshing: false};
+    }
+
+    async update() {
+        await BACKEND.UPDATE();
         let b;
         BACKEND.BUILDINGS.map(building => {
             if (building.id == this.props.navigation.getParam('id')) {
@@ -57,9 +72,9 @@ export default class BuildingScreen extends React.Component {
             }
         });
         
-        this.state = { buildingChecked: true, contractChecked: true, building: b};
+        this.setState({building: b, refreshing: false});
     }
-
+    
     sell = async () => {
         const res = await fetch(BACKEND.CONTRACT, 
             {
@@ -106,10 +121,23 @@ export default class BuildingScreen extends React.Component {
         
     }
 
+  _onRefresh = () => {
+    this.setState({refreshing: true});
+    this.update();
+  }
+
+
     render() {
         return (
             <View style={styles.container}>
-                <ScrollView style={styles.container}>
+                <ScrollView style={styles.container} 
+                 refreshControl={
+                <RefreshControl
+                    refreshing={this.state.refreshing}
+                    onRefresh={this._onRefresh}
+                />
+                }
+                >
                     <Image
                         style={styles.logo}
                         source={buildingImage}

@@ -7,7 +7,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Icon
+  Icon,
+  RefreshControl
 } from 'react-native';
 import { Dimensions } from "react-native";
 import { CheckBox, List, ListItem, FlatList, Avatar, SearchBar} from 'react-native-elements'
@@ -21,21 +22,32 @@ export default class SearchScreen extends React.Component {
     constructor(props) {
         super(props);
         this.navigation = this.props.navigation;
-        this.state = { contract: []};
-        this.getContract();
+        this.state = { contract: [], refreshing: true};
+        this.update();
     }
 
-    getContract = async() => {
-        let res = await fetch(`${BACKEND.A_CONTRACT}`);
-        res = await res.json();
-        this.setState({contract: res});
+    async update() {
+        await BACKEND.UPDATE();
+        let contracts = [];
+        BACKEND.CONTRACTS.map(contract => {
+            if (contract.status === "On Sale") {
+                contracts.push(contract);
+            }
+        })
+        this.setState({contract: contracts, refreshing: false});
+    }
+
+    _onRefresh = () => {
+        this.setState({refreshing: true});
+        this.update();
     }
 
     renderContract = () => {
         if (this.state.contract) {
             let res = []
             this.state.contract.map(contract => {
-                res.push(contract);
+                if(contract.status == "On Sale")
+                    res.push(contract);
             })
             return (
                 <View>
@@ -43,6 +55,7 @@ export default class SearchScreen extends React.Component {
                     <List>
                         {res.map(contract => {
                             return <ListItem
+                                key= {contract.id}
                                 title = {contract.building.address}
                                 onPress={() => this.navigation.navigate("Contract", {id: contract.id})}
                                 subtitle={
@@ -69,7 +82,14 @@ export default class SearchScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+                <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}
+                 refreshControl={
+                    <RefreshControl
+                        refreshing={this.state.refreshing}
+                        onRefresh={this._onRefresh}
+                    />
+                }
+                >
                     {this.renderContract()}
                 </ScrollView>
 

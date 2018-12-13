@@ -7,6 +7,8 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Alert,
+  RefreshControl
 } from 'react-native';
 import { CheckBox, List, ListItem, FlatList, Avatar, Button} from 'react-native-elements'
 import { Dimensions } from "react-native";
@@ -21,50 +23,6 @@ class User {
 
     constructor(name, age) {this.age = age, this.name = name;}
 }
-
-class Contract {
-    id = 1;
-    verificationStep = 1;
-    building = new Building();
-    seller = new User("Ahmed", 21);
-    buyer = new User("Omar", 26);
-}
-
-class Building {
-    name = "Building one";
-    address = "el agoza ";
-    city = "giza";
-    electricity = new Building.Electricity();
-    gas = new Building.Gas();
-    water = new Building.Water();
-    id = 1;
-    latitude = 123;
-    longitudes = 22;
-    numberOfRooms = 2;
-    area = 150;
-    numberOfBathrooms = 1;
-    level = 5
-    isFurnitured = true
-
-    static Electricity = class {
-        totalReader = 16000;
-        monthReader = 1500;
-        totalToPay = 150;
-    }
-
-    static Water = class {
-        totalReader = 16500;
-        monthReader = 500;
-        totalToPay = 120;
-    }
-
-    static Gas = class {
-        totalReader = 1300;
-        monthReader = 130;
-        totalToPay = 59;
-    }
-}
-
 export default class ContractScreen extends React.Component {
     static navigationOptions = {
         title : "BuildingScreen"
@@ -72,17 +30,35 @@ export default class ContractScreen extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { buildingChecked: true, contractChecked: true};
+        this.state = { buildingChecked: true, contractChecked: true, contract : {}, building: {} };
+        this.update();
+        
+    }
 
+    async update() {
+        await BACKEND.UPDATE();
+        
         BACKEND.CONTRACTS.map(contract => {
             if (contract.id == this.props.navigation.getParam('id')) {
                 this.state.contract = contract;
             }
         })
+
+        this.state.building = await this.getBuilding(this.state.contract.building.id);
+        this.setState({refreshing: false, contract: this.state.contract, building: this.state.building});
     }
 
-    publish = () => {
+    _onRefresh = () => {
+        this.setState({refreshing: true});
+        this.update();
+    }
 
+
+    getBuilding = async  (contractId) => {
+        console.log("get building for contract " + `${BACKEND.B_ID}${contractId}`);
+        let res = await fetch(`${BACKEND.B_ID}${contractId}`);
+        res = await res.json();
+        return await res[0];
     }
 
     renderBuyer() {
@@ -102,8 +78,8 @@ export default class ContractScreen extends React.Component {
     }
 
     renderSeller() {
-        if (this.state.contract){
-            let owner = BACKEND.OWNER;
+        if (this.state.contract && this.state.building){
+            let owner = this.state.building.owner;
             return (
                 <View style={[styles.user, {}]}>
                     <Text style={styles.type}>Seller</Text>
@@ -134,104 +110,209 @@ export default class ContractScreen extends React.Component {
     }
 
     renderBuildingInfo() {
-        this.building = this.state.contract.building;
-        return (
-            <View>
-                <View style={[styles.user, {}]}>
-                    <View style={[styles.type, {fontSize: 12}]}>
-                        <Text >Building</Text>
-                        <Text >Info</Text>
-                    </View>
-                    
-                    <View style={[styles.info, {width: width/4 * 3}]}>
-                        <Text style={{fontSize: 15}}>Area {this.building.area}</Text>
-                        <Text style={{fontSize: 15}}>City {this.building.city}</Text>
-                        <Text style={{fontSize: 15}}>Address {this.building.address}</Text>
-                        <Text style={{fontSize: 15}}>Level {this.building.level}</Text>
+        if(this.state.building) {
+            return (
+                <View>
+                    <View style={[styles.user, {}]}>
+                        <View style={[styles.type, {fontSize: 12}]}>
+                            <Text >Building</Text>
+                            <Text >Info</Text>
+                        </View>
                         
-                        <Text></Text>
-                        <Text style={{fontSize: 15}}>{(this.building.isFurnitured) ? 'The building have furniture': 'There is no furniture'}</Text>
-                        <Text style={{fontSize: 15}}>N.Room {this.building.numberOfRooms}</Text>
-                        <Text style={{fontSize: 15}}>N.Bathroom {this.building.numberOfBathrooms}</Text>
+                        <View style={[styles.info, {width: width/4 * 3}]}>
+                            <Text style={{fontSize: 15}}>Area {this.state.building.area}</Text>
+                            <Text style={{fontSize: 15}}>City {this.state.building.city}</Text>
+                            <Text style={{fontSize: 15}}>Address {this.state.building.address}</Text>
+                            <Text style={{fontSize: 15}}>Level {this.state.building.level}</Text>
+                            
+                            <Text></Text>
+                            <Text style={{fontSize: 15}}>{(this.state.building.isFurnitured) ? 'The building have furniture': 'There is no furniture'}</Text>
+                            <Text style={{fontSize: 15}}>N.Room {this.state.building.numberOfRooms}</Text>
+                            <Text style={{fontSize: 15}}>N.Bathroom {this.state.building.numberOfBathrooms}</Text>
+                        </View>
                     </View>
-                </View>
 
-                <View style={[styles.user, {}]}>
-                    <View style={[styles.type, {fontSize: 12}]}>
-                        <Text >Electricity</Text>
+                    <View style={[styles.user, {}]}>
+                        <View style={[styles.type, {fontSize: 12}]}>
+                            <Text >Electricity</Text>
+                        </View>
+                        
+                        <View style={[styles.info, {width: width/4 * 3}]}>
+                            <Text fontSize="8">Total Read: {this.state.building.electricityTotalReader} kW</Text>
+                            <Text fontSize="8">Current Read: {this.state.building.electricityMonthReader} kW</Text>
+                            <Text fontSize="8">Amount to be pay: {this.state.building.electricityTotalToPay} EGP</Text>
+                        </View>
+                    </View>
+
+                    <View style={[styles.user, {}]}>
+                        <View style={[styles.type, {fontSize: 12}]}>
+                            <Text >Gas</Text>
+                        </View>
+                        
+                        <View style={[styles.info, {width: width/4 * 3}]}>
+                            <Text fontSize="8">Total Read: {this.state.building.gasTotalReader} m3</Text>
+                            <Text fontSize="8">Current Read: {this.state.building.gasMonthReader} m3</Text>
+                            <Text fontSize="8">Amount to be pay: {this.state.building.gasTotalToPay} EGP</Text>
+                        </View>
+                    </View>
+
+                    <View style={[styles.user, {}]}>
+                        <View style={[styles.type, {fontSize: 12}]}>
+                            <Text >Water</Text>
+                        </View>
+                        
+                        <View style={[styles.info, {width: width/4 * 3}]}>
+                            <Text fontSize="8">Total Read: {this.state.building.waterTotalReader} m3</Text>
+                            <Text fontSize="8">Current Read: {this.state.building.waterMonthReader} m3</Text>
+                            <Text fontSize="8">Amount to be pay: {this.state.building.waterTotalToPay} EGP</Text>
+                        </View>
                     </View>
                     
-                    <View style={[styles.info, {width: width/4 * 3}]}>
-                        <Text fontSize="8">Total Read: {this.building.electricityTotalReader} kW</Text>
-                        <Text fontSize="8">Current Read: {this.building.electricityMonthReader} kW</Text>
-                        <Text fontSize="8">Amount to be pay: {this.building.electricityTotalToPay} EGP</Text>
-                    </View>
                 </View>
-
-                <View style={[styles.user, {}]}>
-                    <View style={[styles.type, {fontSize: 12}]}>
-                        <Text >Gas</Text>
-                    </View>
-                    
-                    <View style={[styles.info, {width: width/4 * 3}]}>
-                        <Text fontSize="8">Total Read: {this.building.gasTotalReader} m3</Text>
-                        <Text fontSize="8">Current Read: {this.building.gasMonthReader} m3</Text>
-                        <Text fontSize="8">Amount to be pay: {this.building.gasTotalToPay} EGP</Text>
-                    </View>
-                </View>
-
-                <View style={[styles.user, {}]}>
-                    <View style={[styles.type, {fontSize: 12}]}>
-                        <Text >Water</Text>
-                    </View>
-                    
-                    <View style={[styles.info, {width: width/4 * 3}]}>
-                        <Text fontSize="8">Total Read: {this.building.waterTotalReader} m3</Text>
-                        <Text fontSize="8">Current Read: {this.building.waterMonthReader} m3</Text>
-                        <Text fontSize="8">Amount to be pay: {this.building.waterTotalToPay} EGP</Text>
-                    </View>
-                </View>
-                
-            </View>
-        );
+            );
+        }
     }
 
     renderBuildingCondition() {
         return (<View style={{padding: 20}}>
             <Text>By accepting the condition</Text>
             <Text style={{fontSize: 15}}>Buyer</Text>
-            <Text>- you accept to buy the money</Text>
+            <Text>- you accept to pay the money</Text>
             <Text style={{fontSize: 15}}></Text>
             <Text style={{fontSize: 15}}>Seller</Text>
-            <Text>- you accept to buy to the government Water</Text>
-            <Text>- you accept to buy to the government Gas</Text>
-            <Text>- you accept to buy to the government Electricity</Text>
+            <Text>- you accept to pay to the government Water</Text>
+            <Text>- you accept to pay to the government Gas</Text>
+            <Text>- you accept to pay to the government Electricity</Text>
             <Text>- you accept to transfer the builing owenrship</Text>
         </View>)
     }
 
+    buy = () => {
+        this.state.contract.buyerId = BACKEND.OWNER.id;
+        this.state.contract.approvedByBuyer = 1;
+        this.state.contract.hasAbuyer = 1;
+        let i = 0;
+        BACKEND.updateContract(this.state.contract);
+
+        fetch(`${BACKEND.CONTRACT}/${this.state.contract.id}`, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state.contract)
+        }).then(() => {
+            this.props.navigation.navigate("Search");
+        }).catch (() => {
+            Alert.alert("Some thing wrong");
+        });
+    }
+
+    reject = () => {
+        this.state.contract.buyerId = null;
+        this.state.contract.hasAbuyer = "0";
+        fetch(`${BACKEND.CONTRACT}/${this.state.contract.id}`, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state.contract)
+        }).then(() => {
+            BACKEND.updateContract(this.state.contract);
+            this.props.navigation.navigate("Home");
+        }).catch (() => {
+            Alert.alert("Some thing wrong");
+        });
+    }
+
+    acceptBuy = () => {
+        this.state.contract.approvedBySeller = 1;
+        this.state.contract.status = "Sold";
+        this.state.contract.hasAbuyer = "0";
+
+        fetch(`${BACKEND.CONTRACT}/${this.state.contract.id}`, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state.contract)
+        }).then(() => {
+            BACKEND.updateContract(this.state.contract);
+            this.state.building.ownerId = this.state.contract.buyerId;
+            fetch(`${BACKEND.BUILDING}/${this.state.building.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.state.building)
+            }).then(() => {
+                this.props.navigation.navigate("Home");
+            }).catch (() => {
+                Alert.alert("Some thing wrong");
+            });
+        }).catch (() => {
+            Alert.alert("Some thing wrong");
+        });
+    }
+
+    renderOptional = () => {
+        
+        if(this.state.building.owner.id == BACKEND.OWNER.id) {
+            if (this.state.contract.hasAbuyer && this.state.contract.hasAbuyer != 0 && this.state.contract.status === "On Sale") 
+                return <View>
+                    <TouchableOpacity
+                        onPress = {this.acceptBuy}
+                        style= {{borderColor:"#0062cc", borderRadius: 10, borderWidth: 3, padding: 10, backgroundColor: "white"}}
+                        underlayColor='#fff'>
+                        <Text style={{color: "#0062cc", fontSize: 20}}>Accept</Text>
+                    </TouchableOpacity>  
+                    <TouchableOpacity
+                        style= {{borderColor:"#0062cc", borderRadius: 10, borderWidth: 3, padding: 10, backgroundColor: "white"}}
+                        underlayColor='#fff'
+                        onPress={this.reject}
+                        >
+                        <Text style={{color: "#0062cc", fontSize: 20}}>Reject</Text>
+                    </TouchableOpacity>  
+                </View>
+        }else {
+            if (this.state.contract.hasAbuyer == 1) {
+                return <View></View>
+            }
+            return <TouchableOpacity
+                onPress = {this.buy}
+                style= {{borderColor:"#0062cc", borderRadius: 10, borderWidth: 3, padding: 10, backgroundColor: "white"}}
+                underlayColor='#fff'>
+                <Text style={{color: "#0062cc", fontSize: 20}}>Buy</Text>
+            </TouchableOpacity>
+        }
+    }
+
     render() {
-        if(!this.state.contract) {
+        console.log(this.state.building, this.state.contract)
+        if(!this.state.contract || !this.state.contract.building || !this.state.building) {
             return <View></View>
         }else {
         return (
             <View style={styles.container}>
-                <ScrollView style={styles.container}>
+                <ScrollView style={styles.container}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={this.state.refreshing}
+                        onRefresh={this._onRefresh}
+                    />
+                }
+                >
                     <Image
                         style={styles.logo}
                         source={buildingImage}
                     />
                     <View style={styles.header}>
                         <Text style={styles.headerText}>{this.state.contract.building.address}</Text>
-                        { (this.state.contract.buyer) ? 
-                            <TouchableOpacity
-                                style= {{borderColor:"#0062cc", borderRadius: 10, borderWidth: 3, padding: 10, color: "white", backgroundColor: "white"}}
-                                underlayColor='#fff'>
-                                <Text style={{color: "black", fontSize: 20}}>Accept</Text>
-                            </TouchableOpacity>                 
-                             : <Text></Text>
-                        }
-
+                        {this.renderOptional()}
+                        
                     </View>
 
                     <View>

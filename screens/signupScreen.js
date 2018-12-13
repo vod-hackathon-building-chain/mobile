@@ -14,8 +14,15 @@ export default class SignUpScreen extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.navigation = this.props.navigation;
         this.state = { email: 'building_chain@blockchain.com', password: 'password', username:'building', fname: 'ahmed', sname: 'nasser', phone: '01234567891' };
+        const didBlurSubscription = this.props.navigation.addListener(
+            'willFocus',
+            payload => {
+                    console.debug('SignUp', payload);
+            }
+        );
     }
 
     validateEmail(email) {
@@ -114,7 +121,7 @@ export default class SignUpScreen extends React.Component {
                     <Button
                         onPress={this.signUp}
                         title="Sign Up"
-                        color="black"
+                        color="white"
                     />
                 </TouchableOpacity>
         
@@ -122,7 +129,7 @@ export default class SignUpScreen extends React.Component {
                     style={main.secondBtn}
                     onPress={() => this.props.navigation.navigate("Login")}
                     title="Login"
-                    color="black"
+                    color="white"
                 />
                     
             </View>
@@ -138,22 +145,22 @@ const main = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#0062cc',
+    backgroundColor: '#343a40',
   },
   titleText:{
-     
+     color: "white",
     fontSize: 50,
     alignItems: 'center',
     justifyContent: 'center',
   },
   titleText2: {
-     
+    color: "white",
     fontSize: 40,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   titleText3: {
-     
+     color: "white",
     fontSize: 15,
     alignItems: 'center',
     justifyContent: 'center',
@@ -161,11 +168,10 @@ const main = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    backgroundColor: '#C3F3BC',
+    backgroundColor: '#0062cc',
     width: 200,
     marginBottom: 20,
     padding: 10,
-    borderWidth: 1,
     borderColor: 'white',
     borderRadius: 10,
     marginBottom: 10,

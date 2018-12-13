@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  RefreshControl
 } from 'react-native';
 import { CheckBox, List, ListItem, FlatList, Avatar} from 'react-native-elements'
 import { Dimensions } from "react-native";
@@ -21,34 +22,25 @@ export default class HomeScreen extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { buildingChecked: true, contractChecked: true , building: []};
+        this.state = { buildingChecked: true, contractChecked: true , building: [], refreshing: true};
         this.navigation = this.props.navigation;
-        this.getBuilding();
-        this.getContract();
+        let self = this;
+        this.update();
     }
 
-    getContract = async() => {
-        let res = await fetch(`${BACKEND.CONTRACT}`);
-        res = await res.json();
-        BACKEND.CONTRACTS = res;
-        let array = [];
-        res.map(contract => {
+    async update() {
+        await BACKEND.UPDATE();
+        
+        let contracts = [];
+        BACKEND.CONTRACTS.map(contract => {
             if (contract.building.ownerId === BACKEND.OWNER.id) {
-                array.push(contract);
+                contracts.push(contract);
             }
         })
-        this.setState({contract: array});
-    }
 
-    getBuilding = async () => {
-        let res = await fetch(`${BACKEND.BUILDING}/${BACKEND.OWNER.id}`);
-        res = await res.json();
-        
-        let array = [];
-        
-        res.map(object => {
-            BACKEND.BUILDINGS.push(object);
-            array.push({
+        let building = [];        
+        BACKEND.BUILDINGS.map(object => {
+            building.push({
                 address: object["address"],    
                 area: object["area"],
                 city: object["city"],
@@ -56,7 +48,7 @@ export default class HomeScreen extends React.Component {
                 id: object["id"]
             })
         })
-        this.setState({building: array});
+        this.setState({contract: contracts, building: building, refreshing: false});
     }
 
     renderBuilding = () => {
@@ -128,9 +120,14 @@ export default class HomeScreen extends React.Component {
         );
     }
 
+    _onRefresh = () => {
+        this.setState({refreshing: true});
+        this.update();
+    }
+
+
     render() {
         return (
-            
             <View style={{height: height}}>
                 <View style={{height: 70}}>
                     <View style={{flex: 1, flexDirection: 'row'}}>
@@ -154,7 +151,14 @@ export default class HomeScreen extends React.Component {
                         </View>
                     </View>
                 </View>
-                <ScrollView style={{}}>
+                <ScrollView style={{}}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            onRefresh={this._onRefresh}
+                        />
+                    }
+                >
                     {this.renderBuilding()}
                     <View style={styles.line}></View>
                     {this.renderContract()}
