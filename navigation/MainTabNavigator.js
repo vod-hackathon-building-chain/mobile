@@ -10,6 +10,7 @@ import SignUpScreen from '../screens/signupScreen';
 import BuildingScreen from '../screens/buildingScreen';
 import LoginScreen from '../screens/loginScreen';
 import ContractScreen from '../screens/contractScreen';
+import AddBuilding from '../screens/addBuilding';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -50,6 +51,20 @@ const NotificationStack = createStackNavigator({
   Settings: NotificationScreen,
 });
 
+const AddBuildingStack = createStackNavigator({
+    Settings: AddBuilding
+})
+
+AddBuildingStack.navigationOptions = {
+    tabBarLabel: 'Add Building',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+        focused={focused}
+        name={Platform.OS === 'ios' ? 'ios-filing' : 'md-filing'}
+        />
+    ),
+};
+
 NotificationStack.navigationOptions = {
     header: null,
     tabBarLabel: 'Notification',
@@ -78,7 +93,8 @@ export const AppNavigator = createStackNavigator({
         }),
     },
     Building: {screen: BuildingScreen, header: null},
-    Contract: {screen: ContractScreen}
+    Contract: {screen: ContractScreen},
+    AddBuilding: {screen: AddBuildingStack}
 }, {
   headerMode: 'none',
   navigationOptions: {

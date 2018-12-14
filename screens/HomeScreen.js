@@ -16,19 +16,19 @@ import { BACKEND } from '../constants/Backend';
 
 
 export default class HomeScreen extends React.Component {
-    static navigationOptions = {
+    static navigationOptions = ({navigation}) => ({
         title : "Property",
-        headerRight: (
+        headerRight: ( 
             <TouchableOpacity
                 style={{padding: 13, width: width/5, height: 60}}
-                onPress={() => this.props.navigation.navigate("AddBuilding")}>
+                onPress={() => navigation.navigate("AddBuilding")}>
                 <Text
-                    onPress={() => this.props.navigation.navigate("AddBuilding")}
+                    onPress={() => navigation.navigate("AddBuilding")}
                     style={{color: "blue", fontSize: 30}}
                 >+</Text>
             </TouchableOpacity>
         ),
-    };
+    });
 
 
     constructor(props) {
@@ -37,7 +37,12 @@ export default class HomeScreen extends React.Component {
         this.navigation = this.props.navigation;
         let self = this;
         this.update();
+        this.navigation.setParams({
+            navigate: this.props.navigate
+        })
     }
+
+    
 
     async update() {
         await BACKEND.UPDATE();
@@ -66,7 +71,7 @@ export default class HomeScreen extends React.Component {
         if (this.state.buildingChecked && this.state.building)
             return (                
                 <View>
-                    <Text style={styles.titleText}>Building</Text>
+                    <Text style={styles.titleText}>Property</Text>
                     <List>
                         {this.state.building.map(building => {
                             return <ListItem
@@ -141,28 +146,25 @@ export default class HomeScreen extends React.Component {
     render() {
         return (
             <View style={{height: height}}>
-                <View style={{height: 60, backgroundColor:"rgb(250,250,250)"}}>
-                    <View style={{flex: 1, flexDirection: 'row'}}>
-                            
+            
+                <View style={{height: 60}}>
+                    <View style={{flex: 1, flexDirection: 'row', alignItems: "center", width: width, backgroundColor:"rgb(250,250,250)"}}>
+                        <View style={[styles.checkbox, {height: 60, width:width/ 8}]}></View>
+                        <View style={{height: 60, width:width/ 8 * 3}}>
                             <CheckBox
-                                checkedIcon='dot-circle-o'
-                                uncheckedIcon='circle-o'
-                                style={[styles.checkbox, {width: width/5 * 2, height: 60}]}
-                                center
-                                title='Building'
+                                title='Property'
                                 checked={this.state.buildingChecked}
                                 onPress={() => this.setState({buildingChecked : !this.state.buildingChecked})}
                             />
-
+                        </View>
+                        <View style={[styles.checkbox, {height: 60, width:width/ 8 * 3}]}>
                             <CheckBox
-                                checkedIcon='dot-circle-o'
-                                uncheckedIcon='circle-o'
-                                style={[styles.checkbox, {width: width/5 * 2}]}
-                                center
                                 title='Contract'
                                 checked={this.state.contractChecked}
                                 onPress={() => this.setState({contractChecked : !this.state.contractChecked})}
                             />
+                        </View>
+                        <View style={[styles.checkbox, {height: 60, width:width/ 8}]}></View>
                     </View>
                 </View>
                 <ScrollView style={{}}
@@ -223,8 +225,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     checkbox: {
-        borderWidth:0,
-        width: '50%',
+        borderWidth:0
     },
     checkBoxContainer: {
         flex: 1,
