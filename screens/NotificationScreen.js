@@ -9,8 +9,6 @@ import {
   View,
 } from 'react-native';
 import { CheckBox, List, ListItem, FlatList, Avatar, Button} from 'react-native-elements'
-import { Dimensions } from "react-native";
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class NotificationScreen extends React.Component {
     static navigationOptions = {

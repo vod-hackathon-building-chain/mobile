@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import { CheckBox, List, ListItem, FlatList, Avatar, Button} from 'react-native-elements'
 import { Dimensions } from "react-native";
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { BACKEND } from '../constants/Backend';
 
 
@@ -115,10 +114,10 @@ export default class BuildingScreen extends React.Component {
         
     }
 
-  _onRefresh = () => {
-    this.setState({refreshing: true});
-    this.update();
-  }
+    _onRefresh = () => {
+        this.setState({refreshing: true});
+        this.update();
+    }
 
 
     render() {

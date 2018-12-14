@@ -16,13 +16,7 @@ export default class SignUpScreen extends React.Component {
         super(props);
 
         this.navigation = this.props.navigation;
-        this.state = { email: 'building_chain@blockchain.com', password: 'password', username:'building', fname: 'ahmed', sname: 'nasser', phone: '01234567891' };
-        const didBlurSubscription = this.props.navigation.addListener(
-            'willFocus',
-            payload => {
-                    console.debug('SignUp', payload);
-            }
-        );
+        this.state = { email: 'building_chain@blockchain.com', password: 'password', fname: 'ahmed', nationalId: '292931923921923929399', phone: '01234567891' };
     }
 
     validateEmail(email) {
@@ -49,7 +43,8 @@ export default class SignUpScreen extends React.Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                name: `${this.state.fname}-${this.state.sname}`,
+                name: `${this.state.fname}`,
+                nationalId: this.state.nationalId,
                 email: this.state.email,
                 phone: this.state.phone,
                 password: this.state.phone,
@@ -68,7 +63,6 @@ export default class SignUpScreen extends React.Component {
             <View style={main.container}>
                 <Text style={main.titleText}>Building</Text>
                 <Text style={main.titleText2}>Chain</Text>
-                <Text style={main.titleText3}>Sign Up Form</Text>
                 <TextInput
                     value={this.state.fname}
                     onChangeText={(fname) => this.setState({ fname })}
@@ -77,16 +71,9 @@ export default class SignUpScreen extends React.Component {
                     style={main.input}
                 />
                 <TextInput
-                    value={this.state.sname}
-                    onChangeText={(sname) => this.setState({ sname })}
-                    placeholder='Family Name'
-                    placeholderTextColor = 'black'
-                    style={main.input}
-                />
-                <TextInput
-                    value={this.state.username}
-                    onChangeText={(username) => this.setState({ username })}
-                    placeholder='Username'
+                    value={this.state.nationalId}
+                    onChangeText={(nationalId) => this.setState({ nationalId })}
+                    placeholder='National Id'
                     placeholderTextColor = 'black'
                     style={main.input}
                 />
@@ -115,22 +102,22 @@ export default class SignUpScreen extends React.Component {
                     style={main.input}
                 />
                 
-                <TouchableOpacity
+               <TouchableOpacity
                     style={main.button}
                     onPress={this.signUp}>
-                    <Button
+                    <Text
                         onPress={this.signUp}
-                        title="Sign Up"
-                        color="white"
-                    />
+                        style={{color: "white", fontSize: 20}}
+                    >SignUp</Text>
                 </TouchableOpacity>
-        
-                <Button
-                    style={main.secondBtn}
-                    onPress={() => this.props.navigation.navigate("Login")}
-                    title="Login"
-                    color="white"
-                />
+
+                <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate("Login")}>
+                    <Text
+                        onPress={() => this.props.navigation.navigate("Login")}
+                        style={{color: "white", fontSize: 20}}
+                    >Login</Text>
+                </TouchableOpacity>
                     
             </View>
         );

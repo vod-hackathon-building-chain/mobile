@@ -1,9 +1,10 @@
 import React from 'react';
 import { ExpoConfigView } from '@expo/samples';
-import { Alert, Button, Text, TouchableOpacity, TextInput, View, StyleSheet } from 'react-native';
-import { Dimensions } from "react-native";
+import { Alert, Dimensions, Button, Text, TouchableOpacity, TextInput, View, StyleSheet, Image, Svg } from 'react-native';
 import { BACKEND } from '../constants/Backend';
 import {AppState} from 'react-native'
+import { CheckBox, List, ListItem, FlatList, Avatar, SearchBar, Icon} from 'react-native-elements'
+
 
 export default class LoginScreen extends React.Component {
     static navigationOptions = {
@@ -11,6 +12,8 @@ export default class LoginScreen extends React.Component {
         title: 'Login',
         headerLeft: null
     };
+
+    
 
     constructor(props) {
         super(props);
@@ -61,8 +64,16 @@ export default class LoginScreen extends React.Component {
     render() {
         return (
             <View style={main.container}>
+                <Icon
+                    size={80}
+                    color="white"
+                    type="font-awesome"
+                    name="building-o"
+                    />
+                
                 <Text style={main.titleText}>Building</Text>
                 <Text style={main.titleText2}>Chain</Text>
+                
                 <TextInput
                     value={this.state.email}
                     keyboardType = 'email-address'
@@ -107,6 +118,13 @@ var width = Dimensions.get('window').width; //full width
 
 
 const main = StyleSheet.create({
+    logo: {
+        marginTop: 45,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: width,
+        height: 400,
+    },
   container: {
     flex: 1,
     alignItems: 'center',
