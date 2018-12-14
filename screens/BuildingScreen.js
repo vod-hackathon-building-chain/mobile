@@ -94,20 +94,20 @@ export default class BuildingScreen extends React.Component {
     getpay(obj, w, info) {
         if (obj) {
             return (
-                <View>
-                <View style={styles.electricity}>
-                <Text style={styles.Etitle} fontSize="30">{info}</Text>
-                <View style={styles.Econtent}>
-                    <Text fontSize="8">Total Read: {obj.totalReader} {w}</Text>
-                    <Text fontSize="8">Current Read: {obj.monthly} {w}</Text>
-                    <Text fontSize="8">Amount to be pay: {obj.pay} EGP</Text>
-                </View>
-                </View>
-                <TouchableOpacity
-                    style= {{borderRadius: 10, padding: 10, margin: 10, backgroundColor: "#0062cc"}}
-                    underlayColor='#fff'>
-                    <Text style={{color: "white", fontSize: 20, textAlign: "center"}}>Pay</Text>
-                </TouchableOpacity>
+                <View style={{backgroundColor: "#fff", margin: 5, borderRadius: 15}}>
+                    <View style={styles.electricity}>
+                    <Text style={styles.Etitle} fontSize="30">{info}</Text>
+                    <View style={styles.Econtent}>
+                        <Text fontSize="8">Total Read: {obj.totalReader} {w}</Text>
+                        <Text fontSize="8">Current Read: {obj.monthly} {w}</Text>
+                        <Text fontSize="8">Amount to be pay: {obj.pay} EGP</Text>
+                    </View>
+                    </View>
+                    <TouchableOpacity
+                        style= {{borderRadius: 2, padding: 10, margin: 10, backgroundColor: "white", borderColor: "blue" }}
+                        underlayColor='#fff'>
+                        <Text style={{color: "blue", fontSize: 20, textAlign: "center"}}>Pay</Text>
+                    </TouchableOpacity>
                 </View>
             );
         }
@@ -145,18 +145,22 @@ export default class BuildingScreen extends React.Component {
                             </TouchableOpacity>
                     </View>
 
-                    <View style={[styles.header, {marginRight: 10, marginLeft: 10,borderRightColor: "black", borderLeftColor: "black", borderLeftWidth: 2, borderRightWidth: 2}]} flexDirection="column" paddingLeft="3%" >
-                        <Text style={{fontSize: 15}}>Price: {this.state.building.price}</Text>
-                        <Text style={{fontSize: 15}}>Area: {this.state.building.area}</Text>
-                        <Text style={{fontSize: 15}}>City: {this.state.building.city}</Text>
-                        <Text style={{fontSize: 15}}>Floor: {this.state.building.floor}</Text>
-                        
-                        <Text></Text>
-                        <Text style={{fontSize: 15}}>{(this.state.building.isFurnitured) ? 'The building has furniture': 'There is no furniture'}</Text>
-                        <Text style={{fontSize: 15}}>N.Room: {this.state.building.numberOfRooms}</Text>
-                        <Text style={{fontSize: 15}}>N.Bathroom: {this.state.building.numberOfBathrooms}</Text>
-                        
+                    <View style={{backgroundColor: "#fff", margin: 5, borderRadius: 15}}>
+                        <View style={styles.electricity}>
+                            <Text style={styles.Etitle} fontSize="30">Info</Text>
+                            <View style={styles.Econtent}>
+                            <Text style={{fontSize: 15}}>Price: {this.state.building.price}</Text>
+                            <Text style={{fontSize: 15}}>Area: {this.state.building.area}</Text>
+                            <Text style={{fontSize: 15}}>City: {this.state.building.city}</Text>
+                            <Text style={{fontSize: 15}}>Floor: {this.state.building.floor}</Text>
+                            
+                            <Text></Text>
+                            <Text style={{fontSize: 15}}>{(this.state.building.isFurnitured) ? 'The building has furniture': 'There is no furniture'}</Text>
+                            <Text style={{fontSize: 15}}>N.Room: {this.state.building.numberOfRooms}</Text>
+                            <Text style={{fontSize: 15}}>N.Bathroom: {this.state.building.numberOfBathrooms}</Text>
+                        </View>
                     </View>
+                </View>
 
 
                     {this.getpay(this.state.building.electricity, "kW", "Electricity")}
@@ -192,7 +196,7 @@ const styles = StyleSheet.create({
     },
     headerBtn: {
         textAlign: 'center',
-        width: width/3, 
+        width: width/4, 
         height: 50,
         justifyContent: 'center', 
         alignItems: 'center',
@@ -200,9 +204,9 @@ const styles = StyleSheet.create({
     },
     headerText: {
         textAlign: 'left',
-        fontSize: 30,
+        fontSize: 20,
         paddingLeft: 15,
-        width: width/3 + width/3, 
+        width: width/4 * 3, 
         height: 50,
         justifyContent: 'center', 
         alignItems: 'center' 
@@ -255,7 +259,7 @@ const styles = StyleSheet.create({
         paddingLeft:10
     },
     container: {
-        backgroundColor: '#fff',
+        
     },
     welcomeContainer: {
         alignItems: 'center',
