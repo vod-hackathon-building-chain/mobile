@@ -7,7 +7,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-  RefreshControl
+  RefreshControl,
+  Button
 } from 'react-native';
 import { CheckBox, List, ListItem, FlatList, Avatar} from 'react-native-elements'
 import { Dimensions } from "react-native";
@@ -16,7 +17,17 @@ import { BACKEND } from '../constants/Backend';
 
 export default class HomeScreen extends React.Component {
     static navigationOptions = {
-        title : "Home Screen"
+        title : "Property",
+        headerRight: (
+            <TouchableOpacity
+                style={{padding: 13, width: width/5, height: 60}}
+                onPress={() => this.props.navigation.navigate("AddBuilding")}>
+                <Text
+                    onPress={() => this.props.navigation.navigate("AddBuilding")}
+                    style={{color: "blue", fontSize: 30}}
+                >+</Text>
+            </TouchableOpacity>
+        ),
     };
 
 
@@ -91,9 +102,9 @@ export default class HomeScreen extends React.Component {
             this.state.contract.map(contract => {
                 res.push(contract);
             })
-        }
-        return (
-            <View>
+
+            return (
+                <View>
                 <Text style={styles.titleText}>Contract</Text>
                 <List>
                     {res.map(contract => {
@@ -117,7 +128,9 @@ export default class HomeScreen extends React.Component {
                     })}
                 </List>
             </View>
-        );
+            );
+        }
+        
     }
 
     _onRefresh = () => {
@@ -125,30 +138,31 @@ export default class HomeScreen extends React.Component {
         this.update();
     }
 
-
     render() {
         return (
             <View style={{height: height}}>
-                <View style={{height: 70}}>
+                <View style={{height: 60, backgroundColor:"rgb(250,250,250)"}}>
                     <View style={{flex: 1, flexDirection: 'row'}}>
-                        <View style={{width: width/2}} >
+                            
                             <CheckBox
-                                style={styles.checkbox}
+                                checkedIcon='dot-circle-o'
+                                uncheckedIcon='circle-o'
+                                style={[styles.checkbox, {width: width/5 * 2, height: 60}]}
                                 center
                                 title='Building'
                                 checked={this.state.buildingChecked}
                                 onPress={() => this.setState({buildingChecked : !this.state.buildingChecked})}
                             />
-                        </View>
-                        <View style={{width: width/2}} >
+
                             <CheckBox
-                                style={styles.checkbox}
+                                checkedIcon='dot-circle-o'
+                                uncheckedIcon='circle-o'
+                                style={[styles.checkbox, {width: width/5 * 2}]}
                                 center
                                 title='Contract'
                                 checked={this.state.contractChecked}
                                 onPress={() => this.setState({contractChecked : !this.state.contractChecked})}
                             />
-                        </View>
                     </View>
                 </View>
                 <ScrollView style={{}}
@@ -209,6 +223,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     checkbox: {
+        borderWidth:0,
         width: '50%',
     },
     checkBoxContainer: {
