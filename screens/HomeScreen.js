@@ -8,9 +8,10 @@ import {
   TouchableOpacity,
   View,
   RefreshControl,
-  Button
+  Button,
+  
 } from 'react-native';
-import { CheckBox, List, ListItem, FlatList, Avatar} from 'react-native-elements'
+import { CheckBox, List, ListItem, FlatList, Avatar, Icon} from 'react-native-elements'
 import { Dimensions } from "react-native";
 import { BACKEND } from '../constants/Backend';
 
@@ -20,11 +21,11 @@ export default class HomeScreen extends React.Component {
         title : "Property",
         headerRight: ( 
             <TouchableOpacity
-                style={{padding: 13, width: width/5, height: 60}}
+                style={{paddingRight: 15, height: 60}}
                 onPress={() => navigation.navigate("AddBuilding")}>
                 <Text
                     onPress={() => navigation.navigate("AddBuilding")}
-                    style={{color: "blue", fontSize: 30}}
+                    style={{color: "red", fontSize: 40}}
                 >+</Text>
             </TouchableOpacity>
         ),
@@ -70,11 +71,12 @@ export default class HomeScreen extends React.Component {
     renderBuilding = () => {
         if (this.state.buildingChecked && this.state.building)
             return (                
-                <View>
-                    <Text style={styles.titleText}>Property</Text>
-                    <List>
+                <View style={{backgroundColor: "#3e6792", paddingTop: 15}}>
+                    <Text style={[styles.titleText, {color: "white", borderWidth: 0}]}>Property</Text>
+                    <List containerStyle={{borderColor:"#3e6792", backgroundColor:"#3e6792", padding: 5, borderWidth: 0}}>
                         {this.state.building.map(building => {
                             return <ListItem
+                                containerStyle={{marginTop: 5, backgroundColor:"rgb(248, 248, 248)", borderRadius:5}}
                                 onPress={() => this.navigation.navigate("Building", {
                                     id: building.id
                                 })}
@@ -88,10 +90,11 @@ export default class HomeScreen extends React.Component {
                                     </View>
                                 }
                                 avatar={
-                                    <Avatar
-                                    large
-                                    rounded
-                                    icon={{name: 'home', type: 'font-awesome'}}
+                                    <Icon
+                                    size={50}
+                                    color="#3e6792"
+                                    type="font-awesome"
+                                    name="home"
                                     />
                                 }
                             />
@@ -109,11 +112,12 @@ export default class HomeScreen extends React.Component {
             })
 
             return (
-                <View>
-                <Text style={styles.titleText}>Contract</Text>
-                <List>
+                <View style={{backgroundColor: "#3e6792", borderRadius: 1, paddingTop: 50}}>
+                <Text style={[styles.titleText, {color:"white"}]}>Contract</Text>
+                <List containerStyle={{borderColor:"#3e6792", backgroundColor:"#3e6792", padding: 5, paddingTop:0, borderWidth: 0}}>
                     {res.map(contract => {
                         return <ListItem
+                        containerStyle={{marginTop: 3, backgroundColor:"rgb(248, 248, 248)", borderRadius:5}}
                             key={contract.id}
                             title = {contract.building.address}
                             onPress={() => this.navigation.navigate("Contract", {id: contract.id})}
@@ -124,10 +128,12 @@ export default class HomeScreen extends React.Component {
                                 </View>
                             }
                             avatar={
-                                <Avatar
-                                large
-                                rounded
-                                icon={{name: 'building', type: 'font-awesome'}}/>
+                                <Icon
+                                size={50}
+                                color="#3e6792"
+                                type="font-awesome"
+                                name="file-text-o"
+                                />
                             }
                         />
                     })}
@@ -176,7 +182,7 @@ export default class HomeScreen extends React.Component {
                     }
                 >
                     {this.renderBuilding()}
-                    <View style={styles.line}></View>
+                    
                     {this.renderContract()}
                     
                 </ScrollView>     
@@ -198,9 +204,6 @@ const styles = StyleSheet.create({
     line: {
         marginTop: 15
     },
-    card: {
-        backgroundColor: "grey"
-    },
     subtitleView: {
         paddingLeft: 10,
         paddingTop: 5
@@ -211,7 +214,7 @@ const styles = StyleSheet.create({
     },
     ratingText: {
         paddingLeft: 10,
-        color: 'grey'
+        color: 'black'
     },
     titleText:{
         fontSize: 30,

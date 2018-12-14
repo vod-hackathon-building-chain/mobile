@@ -1,6 +1,6 @@
 import React from 'react';
 import { ExpoConfigView } from '@expo/samples';
-import { Alert, Dimensions, Button, Text, TouchableOpacity, TextInput, View, StyleSheet, Image, Svg } from 'react-native';
+import { Alert, Dimensions, Button, Text, TouchableOpacity, TextInput, View, StyleSheet, Image, ImageBackground } from 'react-native';
 import { BACKEND } from '../constants/Backend';
 import {AppState} from 'react-native'
 import { CheckBox, List, ListItem, FlatList, Avatar, SearchBar, Icon} from 'react-native-elements'
@@ -63,9 +63,13 @@ export default class LoginScreen extends React.Component {
 
     render() {
         return (
+             <ImageBackground source={require("../assets/images/background.jpg")} style={{width: '100%', height: '100%'}}>
+                
+            
             <View style={main.container}>
                 <Icon
-                    size={80}
+                    size={60}
+                    style={{marginBottom: 15,}}
                     color="white"
                     type="font-awesome"
                     name="building-o"
@@ -80,7 +84,7 @@ export default class LoginScreen extends React.Component {
                     onChangeText={(email) => this.setState({ email })}
                     placeholder='Email'
                     placeholderTextColor = 'black'
-                    style={main.input}
+                    style={[main.input, {marginTop: 35, opacity:0.7}]}
                 />
                 <TextInput
                     value={this.state.password}
@@ -88,12 +92,12 @@ export default class LoginScreen extends React.Component {
                     placeholder={'Password'}
                     secureTextEntry={true}
                     placeholderTextColor = 'black'
-                    style={main.input}
+                    style={[main.input, {opacity:0.7}]}
                 />
                 
             
                 <TouchableOpacity
-                    style={main.button}
+                    style={[main.button, {width: width - 80}]}
                     onPress={this.login}>
                     <Text
                         onPress={this.login}
@@ -109,6 +113,7 @@ export default class LoginScreen extends React.Component {
                     >Sign Up</Text>
                 </TouchableOpacity>
             </View>
+            </ImageBackground>
         );
     }
 }
@@ -119,7 +124,8 @@ var width = Dimensions.get('window').width; //full width
 
 const main = StyleSheet.create({
     logo: {
-        marginTop: 45,
+        marginTop: 35,
+        marginBottom: 25,
         justifyContent: 'center',
         alignItems: 'center',
         width: width,
@@ -128,25 +134,24 @@ const main = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#343a40',
+    justifyContent: 'center'
   },
   titleText:{
      color: "white",
-    fontSize: 50,
+    fontSize: 40,
     alignItems: 'center',
     justifyContent: 'center',
   },
   titleText2: {
      color: "white",
-    fontSize: 40,
+    fontSize: 30,
     alignItems: 'center',
     justifyContent: 'center'
   },
   button: {
     alignItems: 'center',
-    backgroundColor: '#0062cc',
-    
+    backgroundColor: 'rgba(64, 152, 193, 0.7)',
+    marginTop: 15,
     width: 200,
     marginBottom: 20,
     padding: 10,
@@ -157,7 +162,7 @@ const main = StyleSheet.create({
   secondBtn: {
     alignItems: 'center',
     width: 200,
-    color: "#0062cc",
+    color: "white",
     marginBottom: 20,
     padding: 10,
     borderWidth: 1,
@@ -165,7 +170,7 @@ const main = StyleSheet.create({
     marginBottom: 10,
   },
   input: {
-    width: width - 50,
+    width: width - 80,
     borderRadius: 5,
     backgroundColor: "white",
     color: "black",

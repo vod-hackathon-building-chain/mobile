@@ -54,7 +54,7 @@ export default class ContractScreen extends React.Component {
 
 
     getBuilding = async  (contractId) => {
-        console.log("get building for contract " + `${BACKEND.B_ID}${contractId}`);
+        
         let res = await fetch(`${BACKEND.B_ID}${contractId}`);
         res = await res.json();
         return await res[0];
@@ -63,7 +63,7 @@ export default class ContractScreen extends React.Component {
     renderBuyer() {
         if (this.state.contract.buyer)
             return (
-                <View style={[styles.user, {}]}>
+                <View style={[styles.user, {backgroundColor: "#fff", margin: 5, borderRadius: 15}]}>
                     <Text style={styles.type} fontSize="30">Buyer</Text>
                     <View style={styles.info}>
                         <Text fontSize="8">{this.contract.buyer.name}</Text>
@@ -80,7 +80,7 @@ export default class ContractScreen extends React.Component {
         if (this.state.contract && this.state.building){
             let owner = this.state.building.owner;
             return (
-                <View style={[styles.user, {}]}>
+                <View style={[styles.user, {backgroundColor: "#fff", margin: 5, borderRadius: 15}]}>
                     <Text style={styles.type}>Seller</Text>
                     <View style={styles.info}>
                         <Text fontSize="8">{owner.name}</Text>
@@ -96,7 +96,7 @@ export default class ContractScreen extends React.Component {
     renderGovernmentStatus() {
         this.contract = this.state.contract;
         return (
-            <View style={[styles.user, {}]}>
+            <View style={[styles.user, {backgroundColor: "#fff", margin: 5, borderRadius: 15}]}>
                 <Text style={[styles.type, {fontSize: 12}]}>Government</Text>
                 <View style={styles.info}>
                     <Text></Text>
@@ -112,7 +112,7 @@ export default class ContractScreen extends React.Component {
         if(this.state.building) {
             return (
                 <View>
-                    <View style={[styles.user, {}]}>
+                    <View style={[styles.user, {backgroundColor: "#fff", margin: 5, borderRadius: 15}]}>
                         <View style={[styles.type, {fontSize: 12}]}>
                             <Text >Building</Text>
                             <Text >Info</Text>
@@ -131,7 +131,7 @@ export default class ContractScreen extends React.Component {
                         </View>
                     </View>
 
-                    <View style={[styles.user, {}]}>
+                    <View style={[styles.user, {backgroundColor: "#fff", margin: 5, borderRadius: 15}]}>
                         <View style={[styles.type, {fontSize: 12}]}>
                             <Text >Electricity</Text>
                         </View>
@@ -143,7 +143,7 @@ export default class ContractScreen extends React.Component {
                         </View>
                     </View>
 
-                    <View style={[styles.user, {}]}>
+                    <View style={[styles.user, {backgroundColor: "#fff", margin: 5, borderRadius: 15}]}>
                         <View style={[styles.type, {fontSize: 12}]}>
                             <Text >Gas</Text>
                         </View>
@@ -155,7 +155,7 @@ export default class ContractScreen extends React.Component {
                         </View>
                     </View>
 
-                    <View style={[styles.user, {}]}>
+                    <View style={[styles.user, {backgroundColor: "#fff", margin: 5, borderRadius: 15}]}>
                         <View style={[styles.type, {fontSize: 12}]}>
                             <Text >Water</Text>
                         </View>
@@ -173,7 +173,7 @@ export default class ContractScreen extends React.Component {
     }
 
     renderBuildingCondition() {
-        return (<View style={{padding: 20}}>
+        return (<View style={{padding: 20, backgroundColor: "#fff", margin: 5, borderRadius: 15}}>
             <Text>By accepting the condition</Text>
             <Text style={{fontSize: 15}}>Buyer</Text>
             <Text>- you accept to pay the money</Text>
@@ -290,7 +290,7 @@ export default class ContractScreen extends React.Component {
     }
 
     render() {
-        console.log(this.state.building, this.state.contract)
+        
         if(!this.state.contract || !this.state.contract.building || !this.state.building) {
             return <View></View>
         }else {
@@ -411,7 +411,6 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     logo: {
-        marginTop: 45,
         justifyContent: 'center',
         alignItems: 'center',
         width: width,
@@ -440,7 +439,7 @@ const styles = StyleSheet.create({
         paddingLeft:10
     },
     container: {
-        backgroundColor: '#fff',
+        
     },
     welcomeContainer: {
         alignItems: 'center',

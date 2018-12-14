@@ -1,6 +1,6 @@
 import React from 'react';
 import { ExpoConfigView } from '@expo/samples';
-import { Alert, Button, Text, TouchableOpacity, TextInput, View, StyleSheet } from 'react-native';
+import { Alert, Button, Text, TouchableOpacity, TextInput, View, StyleSheet, ImageBackground } from 'react-native';
 import { Dimensions } from "react-native";
 import { white } from 'ansi-colors';
 import { BACKEND } from '../constants/Backend';
@@ -60,15 +60,15 @@ export default class SignUpScreen extends React.Component {
 
     render() {
         return (
-            <View style={main.container}>
-                <Text style={main.titleText}>Building</Text>
-                <Text style={main.titleText2}>Chain</Text>
+            <ImageBackground source={require("../assets/images/background.jpg")} style={{width: '100%', height: '100%'}}>
+                
+                <View style={main.container}>
                 <TextInput
                     value={this.state.fname}
                     onChangeText={(fname) => this.setState({ fname })}
                     placeholder='First Name'
                     placeholderTextColor = 'black'
-                    style={main.input}
+                    style={[main.input,{opacity:0.7}]}
                 />
                 <TextInput
                     value={this.state.nationalId}
@@ -120,6 +120,7 @@ export default class SignUpScreen extends React.Component {
                 </TouchableOpacity>
                     
             </View>
+            </ImageBackground>
         );
     }
 }
@@ -132,7 +133,6 @@ const main = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#343a40',
   },
   titleText:{
      color: "white",
@@ -155,7 +155,7 @@ const main = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    backgroundColor: '#0062cc',
+    backgroundColor: 'rgba(64, 152, 193, 0.7)',
     width: 200,
     marginBottom: 20,
     padding: 10,
@@ -178,7 +178,7 @@ const main = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "white",
     color: "black",
-     
+    opacity:0.7,
     fontSize: 20,
     height: 44,
     padding: 10,

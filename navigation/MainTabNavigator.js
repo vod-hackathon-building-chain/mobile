@@ -55,6 +55,34 @@ const AddBuildingStack = createStackNavigator({
     Settings: AddBuilding
 })
 
+const BuildingStack = createStackNavigator({
+    Settings: BuildingScreen
+})
+
+const ContractScreenStack = createStackNavigator({
+    Settings: ContractScreen
+})
+
+ContractScreenStack.navigationOptions = {
+    tabBarLabel: 'Contract',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+        focused={focused}
+        name={Platform.OS === 'ios' ? 'ios-filing' : 'md-filing'}
+        />
+    ),
+};
+
+BuildingStack.navigationOptions = {
+    tabBarLabel: 'Building',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+        focused={focused}
+        name={Platform.OS === 'ios' ? 'ios-filing' : 'md-filing'}
+        />
+    ),
+};
+
 AddBuildingStack.navigationOptions = {
     tabBarLabel: 'Add Building',
     tabBarIcon: ({ focused }) => (
@@ -92,8 +120,8 @@ export const AppNavigator = createStackNavigator({
             SearchStack,
         }),
     },
-    Building: {screen: BuildingScreen, header: null},
-    Contract: {screen: ContractScreen},
+    Building: {screen: BuildingStack, header: null},
+    Contract: {screen: ContractScreenStack},
     AddBuilding: {screen: AddBuildingStack}
 }, {
   headerMode: 'none',

@@ -96,7 +96,7 @@ export default class BuildingScreen extends React.Component {
     getpay(obj, w, info) {
         if (obj) {
             return (
-                <View style={{backgroundColor: "#fff", margin: 5, borderRadius: 15}}>
+                <View style={{backgroundColor: "rgb(248, 248, 248)", margin: 5, borderRadius: 7}}>
                     <View style={styles.electricity}>
                     <Text style={styles.Etitle} fontSize="30">{info}</Text>
                     <View style={styles.Econtent}>
@@ -106,11 +106,11 @@ export default class BuildingScreen extends React.Component {
                     </View>
                     </View>
                     <TouchableOpacity
-                        style= {{borderRadius: 2, padding: 10, margin: 10, backgroundColor: "white", borderColor: "blue" }}
+                        style= {{borderRadius: 15, padding: 10, margin: 10, backgroundColor: "rgba(62,103,146, 0.7)", borderColor: "blue" }}
                         underlayColor='#fff'>
-                        <Text style={{color: "blue", fontSize: 20, textAlign: "center"}}>Pay</Text>
+                        <Text style={{color: "white", fontSize: 20, textAlign: "center"}}>Pay</Text>
                     </TouchableOpacity>
-                </View>
+                </View> 
             );
         }
         
@@ -122,7 +122,7 @@ export default class BuildingScreen extends React.Component {
     }
 
     renderMap = () => {
-        console.log(this.state.building, this.state.building.latitude, this.state.building.longitude)
+        
         if(this.state.building.latitude && this.state.building.longitude)
         return (                <MapView
                     initialRegion={{
@@ -177,28 +177,28 @@ export default class BuildingScreen extends React.Component {
                         <Text style={styles.headerText}>{this.state.building.name}</Text>
                             <TouchableOpacity
                                 onPress = {this.sell}
-                                style= {{borderColor:"#0062cc", borderRadius: 10, borderWidth: 3, padding: 10, color: "white", backgroundColor: "white"}}
+                                style= {{borderColor:"white", borderRadius: 10, borderWidth: 3, padding: 10, color: "white", backgroundColor: "white"}}
                                 underlayColor='#fff'>
                                 <Text style={{fontSize: 20}}>Sell</Text>
                             </TouchableOpacity>
                     </View>
 
-                    <View style={{backgroundColor: "#fff", margin: 5, borderRadius: 15}}>
+                    <View style={{backgroundColor: "rgb(248, 248, 248)", margin: 5, borderRadius: 7}}>
                         <View style={styles.electricity}>
                             <Text style={styles.Etitle} fontSize="30">Info</Text>
-                            <View style={styles.Econtent}>
-                            <Text style={{fontSize: 15}}>Price: {this.state.building.price}</Text>
-                            <Text style={{fontSize: 15}}>Area: {this.state.building.area}</Text>
-                            <Text style={{fontSize: 15}}>City: {this.state.building.city}</Text>
-                            <Text style={{fontSize: 15}}>Floor: {this.state.building.floor}</Text>
-                            
-                            <Text></Text>
-                            <Text style={{fontSize: 15}}>{(this.state.building.isFurnitured) ? 'The building has furniture': 'There is no furniture'}</Text>
-                            <Text style={{fontSize: 15}}>N.Room: {this.state.building.numberOfRooms}</Text>
-                            <Text style={{fontSize: 15}}>N.Bathroom: {this.state.building.numberOfBathrooms}</Text>
+                            <View style={[styles.Econtent, {borderColor: "#3e6792"}]}>
+                                <Text style={{fontSize: 15}}>Price: {this.state.building.price}</Text>
+                                <Text style={{fontSize: 15}}>Area: {this.state.building.area}</Text>
+                                <Text style={{fontSize: 15}}>City: {this.state.building.city}</Text>
+                                <Text style={{fontSize: 15}}>Floor: {this.state.building.floor}</Text>
+                                
+                                <Text></Text>
+                                <Text style={{fontSize: 15}}>{(this.state.building.isFurnitured) ? 'The building has furniture': 'There is no furniture'}</Text>
+                                <Text style={{fontSize: 15}}>N.Room: {this.state.building.numberOfRooms}</Text>
+                                <Text style={{fontSize: 15}}>N.Bathroom: {this.state.building.numberOfBathrooms}</Text>
+                            </View>
                         </View>
                     </View>
-                </View>
 
 
                     {this.getpay(this.state.building.electricity, "kW", "Electricity")}
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
         width: width/4 * 3, 
         borderLeftWidth: 2,
         paddingLeft: 10,
-        borderLeftColor: "black"
+        borderColor: "#3e6792"
     },
     electricity: {
         paddingTop: 15,
@@ -241,6 +241,7 @@ const styles = StyleSheet.create({
         borderRadius: 55
     },
     headerText: {
+        color: "white",
         textAlign: 'left',
         fontSize: 20,
         paddingLeft: 15,
@@ -268,7 +269,6 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     logo: {
-        marginTop: 45,
         justifyContent: 'center',
         alignItems: 'center',
         width: width,
@@ -297,7 +297,7 @@ const styles = StyleSheet.create({
         paddingLeft:10
     },
     container: {
-        
+        backgroundColor: "#3e6792"
     },
     welcomeContainer: {
         alignItems: 'center',
