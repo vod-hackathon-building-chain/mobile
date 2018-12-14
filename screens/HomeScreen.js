@@ -71,9 +71,9 @@ export default class HomeScreen extends React.Component {
     renderBuilding = () => {
         if (this.state.buildingChecked && this.state.building)
             return (                
-                <View style={{backgroundColor: "#3e6792", paddingTop: 15}}>
+                <View style={{backgroundColor: "rgba(62,103,146, 0.7)", paddingTop: 15}}>
                     <Text style={[styles.titleText, {color: "white", borderWidth: 0}]}>Property</Text>
-                    <List containerStyle={{borderColor:"#3e6792", backgroundColor:"#3e6792", padding: 5, borderWidth: 0}}>
+                    <List containerStyle={{borderColor:"rgba(62,103,146, 0.7)", backgroundColor:"rgba(62,103,146, 0.7)", padding: 5, borderWidth: 0}}>
                         {this.state.building.map(building => {
                             return <ListItem
                                 containerStyle={{marginTop: 5, backgroundColor:"rgb(248, 248, 248)", borderRadius:5}}
@@ -92,7 +92,7 @@ export default class HomeScreen extends React.Component {
                                 avatar={
                                     <Icon
                                     size={50}
-                                    color="#3e6792"
+                                    color="rgba(62,103,146, 0.7)"
                                     type="font-awesome"
                                     name="home"
                                     />
@@ -112,9 +112,9 @@ export default class HomeScreen extends React.Component {
             })
 
             return (
-                <View style={{backgroundColor: "#3e6792", borderRadius: 1, paddingTop: 50}}>
+                <View style={{backgroundColor: "rgba(62,103,146, 0.7)", borderRadius: 1, paddingTop: 50}}>
                 <Text style={[styles.titleText, {color:"white"}]}>Contract</Text>
-                <List containerStyle={{borderColor:"#3e6792", backgroundColor:"#3e6792", padding: 5, paddingTop:0, borderWidth: 0}}>
+                <List containerStyle={{borderColor:"rgba(62,103,146, 0.7)", backgroundColor:"rgba(62,103,146, 0.7)", padding: 5, paddingTop:0, borderWidth: 0}}>
                     {res.map(contract => {
                         return <ListItem
                         containerStyle={{marginTop: 3, backgroundColor:"rgb(248, 248, 248)", borderRadius:5}}
@@ -130,7 +130,7 @@ export default class HomeScreen extends React.Component {
                             avatar={
                                 <Icon
                                 size={50}
-                                color="#3e6792"
+                                color="rgba(62,103,146, 0.7)"
                                 type="font-awesome"
                                 name="file-text-o"
                                 />

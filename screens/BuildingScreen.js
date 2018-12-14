@@ -186,7 +186,7 @@ export default class BuildingScreen extends React.Component {
                     <View style={{backgroundColor: "rgb(248, 248, 248)", margin: 5, borderRadius: 7}}>
                         <View style={styles.electricity}>
                             <Text style={styles.Etitle} fontSize="30">Info</Text>
-                            <View style={[styles.Econtent, {borderColor: "#3e6792"}]}>
+                            <View style={[styles.Econtent, {borderColor: "rgba(62,103,146, 0.7)"}]}>
                                 <Text style={{fontSize: 15}}>Price: {this.state.building.price}</Text>
                                 <Text style={{fontSize: 15}}>Area: {this.state.building.area}</Text>
                                 <Text style={{fontSize: 15}}>City: {this.state.building.city}</Text>
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
         width: width/4 * 3, 
         borderLeftWidth: 2,
         paddingLeft: 10,
-        borderColor: "#3e6792"
+        borderColor: "rgba(62,103,146, 0.7)"
     },
     electricity: {
         paddingTop: 15,
@@ -297,7 +297,7 @@ const styles = StyleSheet.create({
         paddingLeft:10
     },
     container: {
-        backgroundColor: "#3e6792"
+        backgroundColor: "rgba(62,103,146, 0.7)"
     },
     welcomeContainer: {
         alignItems: 'center',
