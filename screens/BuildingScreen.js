@@ -13,7 +13,7 @@ import {
 import { CheckBox, List, ListItem, FlatList, Avatar, Button} from 'react-native-elements'
 import { Dimensions } from "react-native";
 import { BACKEND } from '../constants/Backend';
-
+import { MapView, Constants, Location, Permissions } from 'expo';
 
 const buildingImage = require('../assets/images/map.png');
 
@@ -45,6 +45,8 @@ export default class BuildingScreen extends React.Component {
                     floor: building.level,
                     isFurnitured: building.isFurnitured,
                     numberOfRooms: building.numberOfRooms,
+                    longitude: building.longitudes,
+                    latitude: building.latitude,
                     numberOfBathrooms: building.numberOfBathrooms,
                     water: {
                         totalReader: building.waterTotalReader,
@@ -119,6 +121,43 @@ export default class BuildingScreen extends React.Component {
         this.update();
     }
 
+    renderMap = () => {
+        console.log(this.state.building, this.state.building.latitude, this.state.building.longitude)
+        if(this.state.building.latitude && this.state.building.longitude)
+        return (                <MapView
+                    initialRegion={{
+                        latitude: parseFloat(this.state.building.latitude),
+                        longitude: parseFloat(this.state.building.longitude),
+                        latitudeDelta: 0.0060,
+                        longitudeDelta: 0.060,
+                    }}
+                        style = {[styles.map, styles.logo]}
+                        showsUserLocation = {true}
+                        followUserLocation = {true}
+                    >
+                    <MapView.Marker
+                        coordinate={{
+                            accuracy: 5,
+                            altitude: 0,
+                            altitudeAccuracy: -1,
+                            heading: -1,
+                            latitude: parseFloat(this.state.building.latitude),
+                            longitude: parseFloat(this.state.building.longitude),
+                            speed: -1,
+                            latitudeDelta:  0.0060,
+                            longitudeDelta: 0.0060
+                        }}
+                        description="Description">
+                            <MapView.Callout tooltip>
+                                <TouchableOpacity underlayColor='#dddddd'>
+                                    <View>
+                                        <Text>{"Locaiton"}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </MapView.Callout>
+                        </MapView.Marker>
+                    </MapView>);
+    }
 
     render() {
         return (
@@ -131,10 +170,9 @@ export default class BuildingScreen extends React.Component {
                 />
                 }
                 >
-                    <Image
-                        style={styles.logo}
-                        source={buildingImage}
-                    />
+
+                {this.renderMap()}
+                    
                     <View style={styles.header}>
                         <Text style={styles.headerText}>{this.state.building.name}</Text>
                             <TouchableOpacity
