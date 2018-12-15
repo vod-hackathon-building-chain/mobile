@@ -439,7 +439,7 @@ const styles = StyleSheet.create({
         paddingLeft:10
     },
     container: {
-        
+        backgroundColor: "rgba(62,103,146, 0.7)"
     },
     welcomeContainer: {
         alignItems: 'center',

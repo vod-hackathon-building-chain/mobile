@@ -73,7 +73,7 @@ export default class HomeScreen extends React.Component {
             return (                
                 <View style={{backgroundColor: "rgba(62,103,146, 0.7)", paddingTop: 15}}>
                     <Text style={[styles.titleText, {color: "white", borderWidth: 0}]}>Property</Text>
-                    <List containerStyle={{borderColor:"rgba(62,103,146, 0.7)", backgroundColor:"rgba(62,103,146, 0.7)", padding: 5, borderWidth: 0}}>
+                    <List containerStyle={{borderColor:"rgba(62,103,146, 0.7)", backgroundColor:"rgba(62,103,146,0.7)", padding: 3, borderWidth: 0}}>
                         {this.state.building.map(building => {
                             return <ListItem
                                 containerStyle={{marginTop: 5, backgroundColor:"rgb(248, 248, 248)", borderRadius:5}}

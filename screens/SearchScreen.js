@@ -50,11 +50,12 @@ export default class SearchScreen extends React.Component {
                     res.push(contract);
             })
             return (
-                <View>
+                <View style={{backgroundColor: "rgba(62,103,146, 0.7)"}}>
                     <Text style={styles.titleText}>Contract</Text>
-                    <List>
+                    <List containerStyle={{borderColor:"rgba(62,103,146, 0.7)", backgroundColor:"rgba(62,103,146,0.7)", padding: 3, borderWidth: 0}}>
                         {res.map(contract => {
                             return <ListItem
+                                containerStyle={{marginTop: 5, backgroundColor:"rgb(248, 248, 248)", borderRadius:5}}
                                 key= {contract.id}
                                 title = {contract.building.address}
                                 onPress={() => this.navigation.navigate("Contract", {id: contract.id})}
@@ -135,7 +136,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: 'rgba(62,103,146, 0.7)',
     },
     welcomeContainer: {
         alignItems: 'center',
