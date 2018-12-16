@@ -51,10 +51,14 @@ export default class SignUpScreen extends React.Component {
                 role: "User"
             })
         });
-        if (res.status == 200) {
+
+        if(res.status != 200) {
+            Alert.alert("you credential is wrong")
+        }else {
+            let user = await res.json();
+            Alert.alert("Please Don't share you token key with any one it's very important", user["user"]["hash"])
+            BACKEND.OWNER = user["user"];
             this.navigation.replace("Home");
-        } else {
-            Alert.alert("there is error in the info")
         }
     }
 

@@ -126,6 +126,21 @@ export default class AddBuilding extends React.Component {
                     </View>
                     <View style={[styles.user, {backgroundColor:"white", margin: 5, borderRadius: 10}]}>
                         <View style={[styles.type, {fontSize: 18}]}>
+                            <Text >Price</Text>
+                        </View>
+                        
+                        <View style={[styles.info, {width: width/4 * 3, fontSize: 18}]}>
+                            <TextInput
+                                value={this.state.price}
+                                onChangeText={(price) => this.setState({ price })}
+                                placeholder='Ex: 159 k'
+                                placeholderTextColor = '#E3E3E3'
+                                style={{width: width/ 3  * 2}}
+                            />
+                        </View>
+                    </View>
+                    <View style={[styles.user, {backgroundColor:"white", margin: 5, borderRadius: 10}]}>
+                        <View style={[styles.type, {fontSize: 18}]}>
                             <Text >City</Text>
                         </View>
                         
@@ -414,7 +429,7 @@ const styles = StyleSheet.create({
         paddingLeft:10
     },
     container: {
-        backgroundColor: "rgba(62,103,146, 0.7)"
+        backgroundColor: "#51567B"
     },
     welcomeContainer: {
         alignItems: 'center',

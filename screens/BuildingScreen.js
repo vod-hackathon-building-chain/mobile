@@ -87,7 +87,7 @@ export default class BuildingScreen extends React.Component {
         );
 
         if (res.status == 200) {
-            this.navigation.replace("Home");
+            this.navigation.navigate("Home");
         }else {
             Alert.alert("This building is already on sale")
         }
@@ -106,7 +106,7 @@ export default class BuildingScreen extends React.Component {
                     </View>
                     </View>
                     <TouchableOpacity
-                        style= {{borderRadius: 15, padding: 10, margin: 10, backgroundColor: "rgba(62,103,146, 0.7)", borderColor: "blue" }}
+                        style= {{borderRadius: 15, padding: 10, margin: 10, backgroundColor: "#51567B", borderColor: "blue" }}
                         underlayColor='#fff'>
                         <Text style={{color: "white", fontSize: 20, textAlign: "center"}}>Pay</Text>
                     </TouchableOpacity>
@@ -186,7 +186,7 @@ export default class BuildingScreen extends React.Component {
                     <View style={{backgroundColor: "rgb(248, 248, 248)", margin: 5, borderRadius: 7}}>
                         <View style={styles.electricity}>
                             <Text style={styles.Etitle} fontSize="30">Info</Text>
-                            <View style={[styles.Econtent, {borderColor: "rgba(62,103,146, 0.7)"}]}>
+                            <View style={[styles.Econtent, {borderColor: "#51567B"}]}>
                                 <Text style={{fontSize: 15}}>Price: {this.state.building.price}</Text>
                                 <Text style={{fontSize: 15}}>Area: {this.state.building.area}</Text>
                                 <Text style={{fontSize: 15}}>City: {this.state.building.city}</Text>
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
         width: width/4 * 3, 
         borderLeftWidth: 2,
         paddingLeft: 10,
-        borderColor: "rgba(62,103,146, 0.7)"
+        borderColor: "#51567B"
     },
     electricity: {
         paddingTop: 15,
@@ -297,7 +297,7 @@ const styles = StyleSheet.create({
         paddingLeft:10
     },
     container: {
-        backgroundColor: "rgba(62,103,146, 0.7)"
+        backgroundColor: "#51567B"
     },
     welcomeContainer: {
         alignItems: 'center',

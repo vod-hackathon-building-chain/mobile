@@ -16,12 +16,6 @@ import { BACKEND } from '../constants/Backend';
 
 const buildingImage = require('../assets/images/contract.jpg');
 
-class User {
-    name;
-    age;
-
-    constructor(name, age) {this.age = age, this.name = name;}
-}
 export default class ContractScreen extends React.Component {
     static navigationOptions = {
         title : "BuildingScreen"
@@ -261,19 +255,19 @@ export default class ContractScreen extends React.Component {
         
         if(this.state.building.owner.id == BACKEND.OWNER.id) {
             if (this.state.contract.hasAbuyer && this.state.contract.hasAbuyer != 0 && this.state.contract.status === "On Sale") 
-                return <View>
+                return <View style={{flex: 0 ,flexDirection: "row"}}>
                     <TouchableOpacity
                         onPress = {this.acceptBuy}
-                        style= {{borderColor:"#0062cc", borderRadius: 10, borderWidth: 3, padding: 10, backgroundColor: "white"}}
+                        style= {{borderColor:"white", borderRadius: 10, borderWidth: 3,padding:10, marginRight: 10, backgroundColor: "white"}}
                         underlayColor='#fff'>
-                        <Text style={{color: "#0062cc", fontSize: 20}}>Accept</Text>
+                        <Text style={{color: "black", fontSize: 15}}>Accept</Text>
                     </TouchableOpacity>  
                     <TouchableOpacity
-                        style= {{borderColor:"#0062cc", borderRadius: 10, borderWidth: 3, padding: 10, backgroundColor: "white"}}
+                        style= {{borderColor:"red", borderRadius: 10, borderWidth: 3, padding: 10, backgroundColor: "red"}}
                         underlayColor='#fff'
                         onPress={this.reject}
                         >
-                        <Text style={{color: "#0062cc", fontSize: 20}}>Reject</Text>
+                        <Text style={{color: "white", fontSize: 15}}>Reject</Text>
                     </TouchableOpacity>  
                 </View>
         }else {
@@ -282,9 +276,9 @@ export default class ContractScreen extends React.Component {
             }
             return <TouchableOpacity
                 onPress = {this.buy}
-                style= {{borderColor:"#0062cc", borderRadius: 10, borderWidth: 3, padding: 10, backgroundColor: "white"}}
+                style= {{borderColor:"white", borderRadius: 10, borderWidth: 3, padding: 10, backgroundColor: "white"}}
                 underlayColor='#fff'>
-                <Text style={{color: "#0062cc", fontSize: 20}}>Buy</Text>
+                <Text style={{color: "blue", fontSize: 20}}>Buy</Text>
             </TouchableOpacity>
         }
     }
@@ -304,24 +298,23 @@ export default class ContractScreen extends React.Component {
                     />
                 }
                 >
-                    <Image
-                        style={styles.logo}
-                        source={buildingImage}
-                    />
-                    <View style={styles.header}>
-                        <Text style={styles.headerText}>{this.state.contract.building.address}</Text>
-                        {this.renderOptional()}
-                        
-                    </View>
+                <Image
+                    style={styles.logo}
+                    source={buildingImage}
+                />
+                <View style={[styles.header, {flex: 1,marginLeft:10 ,padding: 15, flexDirection: "column"}]}>
+                    <Text style={[styles.headerText, {paddingLeft:15, color: "white", fontSize: 20}]}>{this.state.contract.building.address}</Text>
+                    <View style={{paddingRight: 25}}>{this.renderOptional()}</View>
+                </View>
 
-                    <View>
-                        {this.renderGovernmentStatus()}
-                        {this.renderBuyer()}
-                        {this.renderSeller()}
-                    </View>
+                <View>
+                    {this.renderGovernmentStatus()}
+                    {this.renderBuyer()}
+                    {this.renderSeller()}
+                </View>
 
-                    {this.renderBuildingInfo()}
-                    {this.renderBuildingCondition()}
+                {this.renderBuildingInfo()}
+                {this.renderBuildingCondition()}
                 </ScrollView>
             </View>
         );
@@ -439,7 +432,7 @@ const styles = StyleSheet.create({
         paddingLeft:10
     },
     container: {
-        backgroundColor: "rgba(62,103,146, 0.7)"
+        backgroundColor: "#51567B"
     },
     welcomeContainer: {
         alignItems: 'center',

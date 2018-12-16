@@ -50,9 +50,9 @@ export default class SearchScreen extends React.Component {
                     res.push(contract);
             })
             return (
-                <View style={{backgroundColor: "rgba(62,103,146, 0.7)"}}>
+                <View style={{backgroundColor: "#51567B"}}>
                     <Text style={styles.titleText}>Contract</Text>
-                    <List containerStyle={{borderColor:"rgba(62,103,146, 0.7)", backgroundColor:"rgba(62,103,146,0.7)", padding: 3, borderWidth: 0}}>
+                    <List containerStyle={{borderColor:"#51567B", backgroundColor:"transparent", padding: 3, borderWidth: 0}}>
                         {res.map(contract => {
                             return <ListItem
                                 containerStyle={{marginTop: 5, backgroundColor:"rgb(248, 248, 248)", borderRadius:5}}
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: 'rgba(62,103,146, 0.7)',
+        backgroundColor: '#51567B',
     },
     welcomeContainer: {
         alignItems: 'center',

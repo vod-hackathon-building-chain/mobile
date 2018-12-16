@@ -71,12 +71,12 @@ export default class HomeScreen extends React.Component {
     renderBuilding = () => {
         if (this.state.buildingChecked && this.state.building)
             return (                
-                <View style={{backgroundColor: "rgba(62,103,146, 0.7)", paddingTop: 15}}>
-                    <Text style={[styles.titleText, {color: "white", borderWidth: 0}]}>Property</Text>
-                    <List containerStyle={{borderColor:"rgba(62,103,146, 0.7)", backgroundColor:"rgba(62,103,146,0.7)", padding: 3, borderWidth: 0}}>
+                <View style={{backgroundColor: "#51567B", paddingTop: 15}}>
+                    <Text style={[styles.titleText, {color: "white", borderWidth: 0}]}>Owned Properties</Text>
+                    <List containerStyle={{borderColor:"#51567B", backgroundColor:"transparent", padding: 3, borderWidth: 0}}>
                         {this.state.building.map(building => {
                             return <ListItem
-                                containerStyle={{marginTop: 5, backgroundColor:"rgb(248, 248, 248)", borderRadius:5}}
+                                containerStyle={{marginTop: 5, backgroundColor:"rgb(248, 248, 248))", borderRadius:5}}
                                 onPress={() => this.navigation.navigate("Building", {
                                     id: building.id
                                 })}
@@ -92,7 +92,7 @@ export default class HomeScreen extends React.Component {
                                 avatar={
                                     <Icon
                                     size={50}
-                                    color="rgba(62,103,146, 0.7)"
+                                    color="#51567B"
                                     type="font-awesome"
                                     name="home"
                                     />
@@ -112,12 +112,12 @@ export default class HomeScreen extends React.Component {
             })
 
             return (
-                <View style={{backgroundColor: "rgba(62,103,146, 0.7)", borderRadius: 1, paddingTop: 50}}>
-                <Text style={[styles.titleText, {color:"white"}]}>Contract</Text>
-                <List containerStyle={{borderColor:"rgba(62,103,146, 0.7)", backgroundColor:"rgba(62,103,146, 0.7)", padding: 5, paddingTop:0, borderWidth: 0}}>
+                <View style={{backgroundColor: "#51567B", borderRadius: 1, paddingTop: 50}}>
+                <Text style={[styles.titleText, {color:"white"}]}>Contracts</Text>
+                <List containerStyle={{borderColor:"#51567B", backgroundColor:"#51567B", padding: 5, paddingTop:0, borderWidth: 0}}>
                     {res.map(contract => {
                         return <ListItem
-                        containerStyle={{marginTop: 3, backgroundColor:"rgb(248, 248, 248)", borderRadius:5}}
+                        containerStyle={{marginTop: 3, backgroundColor:"rgb(248, 248, 248))", borderRadius:5}}
                             key={contract.id}
                             title = {contract.building.address}
                             onPress={() => this.navigation.navigate("Contract", {id: contract.id})}
@@ -130,7 +130,7 @@ export default class HomeScreen extends React.Component {
                             avatar={
                                 <Icon
                                 size={50}
-                                color="rgba(62,103,146, 0.7)"
+                                color="#51567B"
                                 type="font-awesome"
                                 name="file-text-o"
                                 />
