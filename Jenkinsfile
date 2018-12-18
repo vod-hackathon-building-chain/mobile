@@ -31,6 +31,7 @@ pipeline {
         steps {
             sh "npm run doctor"
             sh "npm run build"
+            sh "react-native start"
             sh "npm run expo-build"
         }
     }
