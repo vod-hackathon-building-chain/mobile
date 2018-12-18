@@ -20,7 +20,7 @@ pipeline {
 
     stage('build') {
         steps {
-            sh "exp-build"
+            sh "npm exp-build"
         }
     }
   }
