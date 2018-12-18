@@ -3,6 +3,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "scripts": {
+    "doctor": "exp doctor",
     "exp-build": "EXPO_DEBUG=true && exp login -u sngvahmed -p password && exp build:android",
     "build": "expo build:status",
     "start": "expo start",
