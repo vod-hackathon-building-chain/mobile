@@ -17,6 +17,7 @@ pipeline {
         sh 'npm install -g expo-cli'
         sh 'npm install -g react-native'
         sh 'npm install -g metro-bundler-cli'
+        sh 'npm install -g react-native-cli'
       }
     }
      
@@ -30,6 +31,7 @@ pipeline {
         steps {
             sh "npm run doctor"
             sh "npm run build"
+            sh "npm run expo-build"
         }
     }
   }
