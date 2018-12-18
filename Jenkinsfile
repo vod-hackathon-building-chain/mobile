@@ -5,7 +5,11 @@ pipeline {
     
   stages {
      
-        
+    environment {
+        EXPO_DEBUG = true
+        DB_ENGINE    = 'sqlite'
+    }
+
     stage('Install dependencies') {
       steps {
         sh 'npm install'
