@@ -2,13 +2,14 @@ pipeline {
   agent any
     
   tools {nodejs "node"}
-    
-  stages {
      
     environment {
         EXPO_DEBUG = true
         DB_ENGINE    = 'sqlite'
     }
+
+  stages {
+
 
     stage('Install dependencies') {
       steps {
