@@ -3,7 +3,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "scripts": {
-    "exp-build": "exp login -u sngvahmed -p password && exp build:android",
+    "exp-build": "EXPO_DEBUG=true && exp login -u sngvahmed -p password && exp build:android",
     "build": "expo build:status",
     "start": "expo start",
     "android": "expo start --android",
@@ -24,6 +24,7 @@
     "appcenter-analytics": "1.10.0",
     "appcenter-crashes": "1.10.0",
     "expo": "^31.0.2",
+    "expo-cli": "^2.6.14",
     "react": "16.5.0",
     "react-font-awesome-5": "^0.2.2",
     "react-here-maps": "^0.4.0",
