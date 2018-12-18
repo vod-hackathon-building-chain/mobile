@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { CheckBox, List, ListItem, FlatList, Avatar, Button} from 'react-native-elements'
 import { Dimensions } from "react-native";
-import { BACKEND } from '../constants/Backend';
+import { BACKEND } from './constants/Backend';
 
 const buildingImage = require('../assets/images/contract.jpg');
 

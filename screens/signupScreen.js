@@ -3,7 +3,7 @@ import { ExpoConfigView } from '@expo/samples';
 import { Alert, Button, Text, TouchableOpacity, TextInput, View, StyleSheet, ImageBackground } from 'react-native';
 import { Dimensions } from "react-native";
 import { white } from 'ansi-colors';
-import { BACKEND } from '../constants/Backend';
+import { BACKEND } from './constants/Backend';
 
 export default class SignUpScreen extends React.Component {
     static navigationOptions = {

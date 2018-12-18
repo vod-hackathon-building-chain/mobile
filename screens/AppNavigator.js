@@ -1,7 +1,6 @@
 import React from 'react';
 import { createSwitchNavigator } from 'react-navigation';
-import {AppNavigator} from './../navigation/MainTabNavigator'
-import MainTabNavigator from './MainTabNavigator';
+import {AppNavigator} from './MainTabNavigator'
 
 export default createSwitchNavigator({
     Main: AppNavigator,

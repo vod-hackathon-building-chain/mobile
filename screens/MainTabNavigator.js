@@ -2,15 +2,15 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
-import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/homeScreen';
-import SearchScreen from '../screens/searchScreen';
-import NotificationScreen from '../screens/notificationScreen';
-import SignUpScreen from '../screens/signupScreen';
-import BuildingScreen from '../screens/buildingScreen';
-import LoginScreen from '../screens/loginScreen';
-import ContractScreen from '../screens/contractScreen';
-import AddBuilding from '../screens/addBuilding';
+import TabBarIcon from './TabBarIcon';
+import HomeScreen from './homeScreen';
+import SearchScreen from './searchScreen';
+import NotificationScreen from './notificationScreen';
+import SignUpScreen from './signupScreen';
+import BuildingScreen from './buildingScreen';
+import LoginScreen from './loginScreen';
+import ContractScreen from './contractScreen';
+import AddBuilding from './addBuilding';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,

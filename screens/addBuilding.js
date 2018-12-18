@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExpoConfigView } from '@expo/samples';
+
 import { Alert, Button, Text, TouchableOpacity, StatusBar, 
     TextInput, View, StyleSheet, ScrollView} from 'react-native';
 import {CheckBox} from "react-native-elements"
@@ -7,7 +7,7 @@ import { MapView, Constants, Location, Permissions } from 'expo';
 
 import { Dimensions } from "react-native";
 import { white } from 'ansi-colors';
-import { BACKEND } from '../constants/Backend';
+import { BACKEND } from './constants/Backend';
 
 export default class AddBuilding extends React.Component {
     static navigationOptions = ({navigation}) => ({
