@@ -9,6 +9,7 @@ pipeline {
     stage('Install dependencies') {
       steps {
         sh 'npm install'
+        sh 'npm install -g expo-cli'
       }
     }
      
