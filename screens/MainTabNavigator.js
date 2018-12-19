@@ -3,7 +3,7 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from './TabBarIcon';
-import HomeScreen from './homeScreen';
+import HomeScreen from './HomeScreen';
 import SearchScreen from './searchScreen';
 import NotificationScreen from './notificationScreen';
 import SignUpScreen from './signupScreen';
