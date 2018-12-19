@@ -29,8 +29,6 @@ pipeline {
 
     stage('build') {
         steps {
-            sh "npm run doctor"
-            sh "npm run build"
             sh "npm run expo-build"
         }
     }

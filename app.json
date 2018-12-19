@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "brokerchain",
+    "name": "BrokerMobile",
     "description": "A very interesting project.",
-    "slug": "brokerchain",
+    "slug": "BrokerMobile",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": ["android"],
