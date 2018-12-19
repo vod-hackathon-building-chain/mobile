@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "doctor": "expo doctor",
+    "postinstall": "rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json",
     "expo-build": "EXPO_DEBUG=true && expo login -u sngvahmed -p password && expo fetch:android:keystore && expo build:android",
     "build": "expo build:status",
     "start": "expo start",
