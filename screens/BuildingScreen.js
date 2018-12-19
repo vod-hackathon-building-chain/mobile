@@ -13,7 +13,7 @@ import {
 import { CheckBox, List, ListItem, FlatList, Avatar, Button} from 'react-native-elements'
 import { Dimensions } from "react-native";
 import { MapView, Constants, Location, Permissions } from 'expo';
-import { BACKEND } from 'BrokerMobile/screens/constants/Backend';
+import { BACKEND } from './constants/Backend';
 
 const buildingImage = require('../assets/images/map.png');
 

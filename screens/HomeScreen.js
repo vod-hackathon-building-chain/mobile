@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { CheckBox, List, ListItem, FlatList, Avatar, Icon} from 'react-native-elements'
 import { Dimensions } from "react-native";
-import { BACKEND } from 'BrokerMobile/screens/constants/Backend';
+import { BACKEND } from './constants/Backend';
 
 
 export default class HomeScreen extends React.Component {

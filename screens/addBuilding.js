@@ -7,7 +7,7 @@ import { MapView, Constants, Location, Permissions } from 'expo';
 
 import { Dimensions } from "react-native";
 import { white } from 'ansi-colors';
-import { BACKEND } from 'BrokerMobile/screens/constants/Backend';
+import { BACKEND } from './constants/Backend';
 
 export default class AddBuilding extends React.Component {
     static navigationOptions = ({navigation}) => ({

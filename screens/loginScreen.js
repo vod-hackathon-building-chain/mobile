@@ -1,7 +1,7 @@
 import React from 'react';
 import { ExpoConfigView } from '@expo/samples';
 import { Alert, Dimensions, Button, Text, TouchableOpacity, TextInput, View, StyleSheet, Image, ImageBackground } from 'react-native';
-import { BACKEND } from 'BrokerMobile/screens/constants/Backend';
+import { BACKEND } from './constants/Backend';
 import {AppState} from 'react-native'
 import { CheckBox, List, ListItem, FlatList, Avatar, SearchBar, Icon} from 'react-native-elements'
 

@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { Dimensions } from "react-native";
 import { CheckBox, List, ListItem, FlatList, Avatar, SearchBar} from 'react-native-elements'
-import { BACKEND } from 'BrokerMobile/screens/constants/Backend';
+import { BACKEND } from './constants/Backend';
 
 export default class SearchScreen extends React.Component {
     static navigationOptions = {
