@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "doctor": "expo doctor",
-    "expo-build": "EXPO_DEBUG=true && expo login -u sngvahmed -p password && expo build:android",
+    "expo-build": "EXPO_DEBUG=true && expo login -u sngvahmed -p password && expo fetch:android:keystore && expo build:android",
     "build": "expo build:status",
     "start": "expo start",
     "android": "expo start --android",
