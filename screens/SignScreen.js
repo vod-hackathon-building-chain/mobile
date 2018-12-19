@@ -5,7 +5,7 @@ import { Dimensions } from "react-native";
 import { white } from 'ansi-colors';
 import { BACKEND } from './constants/Backend';
 
-export default class SignUpScreen extends React.Component {
+export default class SignScreen extends React.Component {
     static navigationOptions = {
         header: null,
         title: 'Sign Up',

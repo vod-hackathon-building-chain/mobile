@@ -6,7 +6,7 @@ import TabBarIcon from './TabBarIcon';
 import HomeScreen from './HomeScreen';
 import SearchScreen from './SearchScreen';
 import NotificationScreen from './NotificationScreen';
-import SignUpScreen from './SignUpScreen';
+import SignScreen from './SignScreen';
 import BuildingScreen from './BuildingScreen';
 import LoginScreen from './LoginScreen';
 import ContractScreen from './ContractScreen';
@@ -113,7 +113,7 @@ export default createBottomTabNavigator({
 
 export const AppNavigator = createStackNavigator({
     Login: { screen: LoginScreen, header: null },
-    SignUp: { screen: SignUpScreen, header: null},
+    SignUp: { screen: SignScreen, header: null},
     Home: { screen: createBottomTabNavigator({
             HomeStack,
             NotificationStack,
