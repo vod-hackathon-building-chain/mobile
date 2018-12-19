@@ -4,13 +4,13 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from './TabBarIcon';
 import HomeScreen from './HomeScreen';
-import SearchScreen from './searchScreen';
-import NotificationScreen from './notificationScreen';
-import SignUpScreen from './signupScreen';
-import BuildingScreen from './buildingScreen';
-import LoginScreen from './loginScreen';
-import ContractScreen from './contractScreen';
-import AddBuilding from './addBuilding';
+import SearchScreen from './SearchScreen';
+import NotificationScreen from './NotificationScreen';
+import SignUpScreen from './SignupScreen';
+import BuildingScreen from './BuildingScreen';
+import LoginScreen from './LoginScreen';
+import ContractScreen from './ContractScreen';
+import AddBuilding from './AddBuilding';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
